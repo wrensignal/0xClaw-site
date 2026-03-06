@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>0xClaw</title>
+    <title>0xClaw — Solana memecoins</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Libre+Baskerville:wght@400&display=swap" rel="stylesheet" />
@@ -189,9 +189,9 @@
       }
 
       .signal {
-        margin-top: 32px;
-        padding-top: 112px;
-        padding-bottom: 112px;
+        margin-top: 0;
+        padding-top: 120px;
+        padding-bottom: 120px;
       }
       .signal-wrap {
         max-width: 720px;
@@ -237,33 +237,58 @@
         color: var(--textMuted);
         font-weight: var(--semibold);
       }
-      .signal-flow {
+      .signal-timeline {
         margin: 48px 0;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 10px;
-        flex-wrap: wrap;
+        max-width: 720px;
+        display: grid;
+        gap: 14px;
       }
-      .flow-pill {
-        border: 1px solid rgba(234, 236, 242, 0.22);
-        border-radius: 8px;
-        padding: 8px 18px;
-        font-size: 14px;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-        color: var(--text);
-        font-weight: var(--medium);
-        background: rgba(234, 236, 242, 0.02);
+      .timeline-row {
+        display: grid;
+        grid-template-columns: 72px 1fr;
+        gap: 18px;
+        align-items: start;
       }
-      .flow-pill.outcome {
-        border-color: #C4A46C;
-        color: #C4A46C;
-      }
-      .flow-arrow {
+      .timeline-mark {
+        position: relative;
+        font-family: var(--fontMono);
+        font-size: 12px;
         color: var(--textMuted);
-        font-size: 14px;
-        line-height: 1;
+        letter-spacing: 0.04em;
+        padding-left: 28px;
+        min-height: 28px;
+      }
+      .timeline-mark::before {
+        content: "";
+        position: absolute;
+        left: 9px;
+        top: 0;
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: var(--accent);
+      }
+      .timeline-mark::after {
+        content: "";
+        position: absolute;
+        left: 12px;
+        top: 12px;
+        bottom: -16px;
+        width: 1px;
+        background: rgba(255,255,255,0.10);
+      }
+      .timeline-row:last-child .timeline-mark::after {
+        display: none;
+      }
+      .timeline-copy {
+        margin: 0;
+        font-size: 15px;
+        line-height: 1.55;
+        color: var(--textMuted);
+      }
+      .timeline-copy strong {
+        color: var(--text);
+        font-weight: var(--semibold);
       }
       .signal-pullquote {
         margin: 48px 0 0;
@@ -275,75 +300,33 @@
         color: var(--accent);
         max-width: 640px;
       }
-      .signal-compare {
-        margin-top: 48px;
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 24px;
-        position: relative;
-      }
-      .compare-card {
-        border: 1px solid rgba(234, 236, 242, 0.16);
-        border-radius: var(--radiusMd);
-        padding: 24px;
-        background: rgba(234, 236, 242, 0.02);
-      }
-      .compare-label {
-        margin: 0 0 12px;
-        font-size: 12px;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: var(--textMuted);
-      }
-      .compare-label.accent {
-        color: var(--textMuted);
-      }
-      .compare-copy {
-        margin: 0;
+      .signal-start-cue {
+        margin: 28px 0 0;
         color: var(--textMuted);
         font-size: 16px;
         line-height: 1.6;
       }
       .card {
-        border: 1px solid rgba(234, 236, 242, 0.10);
+        border: 1px solid rgba(255,255,255,0.06);
         border-radius: var(--radiusMd);
-        padding: 22px 16px;
-        background: var(--surface);
-        box-shadow: var(--shadowCard);
+        padding: 32px;
+        background: #141416;
       }
       .hero-cards .card {
-        display: flex;
-        align-items: center;
-        gap: var(--stackGap);
+        display: grid;
+        gap: 12px;
         position: relative;
       }
-      .card:hover {
-        background: var(--surfaceElevated);
-        box-shadow: var(--shadowHover);
-      }
-      .card-icon {
-        width: 48px;
-        height: 48px;
-        border-radius: 12px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        flex: 0 0 48px;
-      }
-      .sfs {
-        font-size: 22px;
-        line-height: 1;
-        color: var(--text);
-        font-family: var(--fontBody);
-        font-weight: 600;
-      }
-      .card-icon-rail { background: var(--accentSoft); }
-      .card-icon-self { background: var(--accentSoft2); }
       .card-content {
         display: grid;
         align-content: center;
         gap: 6px;
         width: 100%;
+      }
+      .card-title-row {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
       }
       .card-title {
         font-size: var(--body);
@@ -357,28 +340,6 @@
         color: var(--textMuted);
         line-height: var(--lhSmall);
       }
-      .scroll-indicator {
-        position: fixed;
-        left: 50%;
-        bottom: 40px;
-        transform: translateX(-50%);
-        color: var(--textMuted);
-        font-size: 12px;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        display: grid;
-        justify-items: center;
-        gap: 6px;
-        opacity: 0.52;
-        animation: scrollBob 3.6s ease-in-out infinite;
-        pointer-events: none;
-        z-index: 50;
-      }
-      .scroll-indicator::after {
-        content: "↓";
-        font-size: 14px;
-        line-height: 1;
-      }
       .card-top {
         display: flex;
         align-items: center;
@@ -386,39 +347,16 @@
         gap: 8px;
       }
       .card-badge {
-        position: absolute;
-        left: 50%;
-        bottom: -13px;
-        transform: translateX(-50%);
-        font-size: 11px;
-        color: var(--text);
-        border: 1px solid var(--accent);
-        background: var(--bg);
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(234, 236, 242, 0.66);
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(255,255,255,0.02);
         border-radius: 999px;
-        padding: 2px 8px;
+        padding: 3px 8px;
         white-space: nowrap;
       }
-      .card.recommended {
-        border-color: var(--accent);
-        box-shadow:
-          0 0 0 1px rgba(196, 164, 108, 0.24) inset,
-          0 0 36px rgba(196, 164, 108, 0.20);
-        position: relative;
-      }
-      .card.recommended::before {
-        content: "";
-        position: absolute;
-        inset: -1px;
-        border-radius: var(--radiusMd);
-        pointer-events: none;
-        background: radial-gradient(circle at 22% 20%, rgba(196, 164, 108, 0.24), transparent 55%);
-      }
-
-      @keyframes scrollBob {
-        0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.42; }
-        50% { transform: translateX(-50%) translateY(4px); opacity: 0.56; }
-      }
-
       .how {
         background: transparent;
         margin-top: 150px;
@@ -490,7 +428,7 @@
 
       .cred {
         background: transparent;
-        margin-top: 30px;
+        margin-top: 0;
         padding-top: 120px;
         padding-bottom: 120px;
       }
@@ -549,9 +487,9 @@
       }
 
       .start {
-        margin-top: 30px;
-        padding-top: 96px;
-        padding-bottom: 96px;
+        margin-top: 0;
+        padding-top: 120px;
+        padding-bottom: 120px;
       }
       .start-head {
         max-width: 720px;
@@ -578,7 +516,8 @@
         color: var(--textMuted);
       }
       .start-grid {
-        margin-top: 48px;
+        margin-top: 24px;
+        max-width: 740px;
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 24px;
@@ -679,12 +618,20 @@
       }
 
       .toolkit {
-        margin-top: 24px;
+        margin-top: 0;
         padding-top: 120px;
         padding-bottom: 120px;
       }
       .toolkit-head {
         max-width: 880px;
+      }
+      .toolkit-kicker {
+        margin: 0;
+        font-size: 12px;
+        line-height: var(--lhSmall);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
       }
       .toolkit-title {
         margin: 0;
@@ -713,7 +660,7 @@
         border: 1px solid rgba(255,255,255,0.06);
         border-radius: var(--radiusMd);
         background: #141416;
-        padding: 28px;
+        padding: 32px;
       }
       .tool-top {
         display: flex;
@@ -721,21 +668,20 @@
         justify-content: space-between;
         gap: 12px;
       }
-      .tool-iconbox {
-        width: 30px;
-        height: 30px;
-        border: 1px solid rgba(255,255,255,0.14);
-        border-radius: 8px;
-        background: rgba(234, 236, 242, 0.03);
+      .tool-icon {
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        flex: 0 0 18px;
       }
-      .tool-icon {
-        color: #C4A46C;
-        font-family: -apple-system, 'SF Pro Text', 'SF Pro Icons', sans-serif;
-        font-size: 14px;
-        line-height: 1;
+      .icon-lucide {
+        width: 18px;
+        height: 18px;
+        stroke: rgba(196, 164, 108, 0.6);
+        stroke-width: 2;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
       }
       .tool-count {
         margin: 0;
@@ -759,6 +705,44 @@
         font-size: 16px;
         line-height: 1.62;
         color: var(--textMuted);
+      }
+
+      .closing {
+        padding-top: 64px;
+        padding-bottom: 48px;
+      }
+      .closing-rule {
+        height: 1px;
+        background: rgba(255,255,255,0.10);
+        width: 100%;
+      }
+      .closing-wrap {
+        margin-top: 32px;
+        text-align: center;
+      }
+      .closing-title {
+        margin: 0;
+        font-family: var(--fontDisplay);
+        font-size: clamp(28px, 3vw, 36px);
+        line-height: 1.15;
+        font-weight: var(--regular);
+        color: var(--text);
+      }
+      .closing-copy {
+        margin: 16px 0 0;
+        color: var(--textMuted);
+        font-size: 16px;
+        line-height: 1.6;
+      }
+      .closing-links {
+        margin-top: 20px;
+        display: inline-flex;
+        gap: 20px;
+      }
+      .closing-links a {
+        font-size: 14px;
+        color: var(--accent);
+        text-decoration: none;
       }
 
       .site-footer {
@@ -797,11 +781,6 @@
         font-size: 12px;
         color: rgba(234, 236, 242, 0.3);
       }
-      .scroll-indicator.is-scrolled {
-        animation: none;
-        transition: opacity .32s ease-out;
-      }
-
       @media (max-width: 860px) {
         .hero-layout {
           min-height: auto;
@@ -812,8 +791,7 @@
         .how-grid,
         .cred-stats,
         .start-grid,
-        .toolkit-grid,
-        .signal-compare {
+        .toolkit-grid {
           grid-template-columns: 1fr;
         }
         .how-card::after { display: none; }
@@ -825,8 +803,8 @@
       <div class="container nav-inner">
         <div class="wordmark">0xClaw</div>
         <nav class="nav-links" aria-label="Primary">
-          <a href="../README.md#quick-start">Quick Start</a>
-          <a href="../README.md">Docs</a>
+          <a href="https://github.com/wrensignal/0xClaw#quick-start" target="_blank" rel="noreferrer">Quick Start</a>
+          <a href="https://github.com/wrensignal/0xClaw" target="_blank" rel="noreferrer">Docs</a>
           <a class="link-btn" href="https://github.com/wrensignal/0xClaw" target="_blank" rel="noreferrer">GitHub</a>
         </nav>
       </div>
@@ -836,23 +814,23 @@
       <section class="hero">
         <div class="container hero-layout">
           <div class="hero-top">
-            <h1>Your agent's trading stack for Sol memecoins.</h1>
+            <h1>Your agent's trading stack for Solana memecoins.</h1>
             <p class="sub">Open source trading agents with private inference and safe defaults.</p>
           </div>
 
           <div class="hero-cards">
             <article class="card recommended">
-              <div class="card-icon card-icon-rail"><span class="sfs">↗</span></div>
               <div class="card-content">
-                <div class="card-title">0xClaw + Railway</div>
+                <div class="card-top">
+                  <div class="card-title-row"><span class="tool-icon" aria-hidden="true"><svg class="icon-lucide" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.3-2 5.2-2 5.2s3.9-.5 5.2-2c.7-.8.7-2.1 0-2.8-.7-.7-2-.7-2.8 0Z"/><path d="m12 15-3-3a22 22 0 0 1 9-9 22 22 0 0 1-9 9Z"/><path d="M9 12H4.5A2.5 2.5 0 0 1 2 9.5V4a2 2 0 0 1 2-2h5.5A2.5 2.5 0 0 1 12 4.5V9"/><path d="M12 15v4.5a2.5 2.5 0 0 0 2.5 2.5H20a2 2 0 0 0 2-2v-5.5a2.5 2.5 0 0 0-2.5-2.5H15"/></svg></span><div class="card-title">0xClaw + Railway</div></div>
+                  <span class="card-badge">Recommended</span>
+                </div>
                 <p class="card-copy">Easy. Safe. One-click deploy.</p>
               </div>
-              <span class="card-badge">Recommended</span>
             </article>
             <article class="card">
-              <div class="card-icon card-icon-self"><span class="sfs">⌘</span></div>
               <div class="card-content">
-                <div class="card-title">Self-hosted</div>
+                <div class="card-title-row"><span class="tool-icon" aria-hidden="true"><svg class="icon-lucide" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg></span><div class="card-title">Self-hosted</div></div>
                 <p class="card-copy">Advanced. Full control over everything.</p>
               </div>
             </article>
@@ -873,14 +851,23 @@
               <p>When a candidate passes the score threshold, it's handed to a trading agent that backtests it against multiple strategies. Only tokens that clear the <code>regression gate</code> — drawdown limits, walk-forward stability, edge confirmation — get promoted. Everything else is discarded. <strong>No overfitting. No hope trades.</strong></p>
             </div>
 
-            <div class="signal-flow" aria-label="Signal to trade flow">
-              <span class="flow-pill">Discover</span>
-              <span class="flow-arrow">→</span>
-              <span class="flow-pill">Score</span>
-              <span class="flow-arrow">→</span>
-              <span class="flow-pill">Backtest</span>
-              <span class="flow-arrow">→</span>
-              <span class="flow-pill outcome">Execute</span>
+            <div class="signal-timeline" aria-label="Signal to trade flow">
+              <div class="timeline-row">
+                <div class="timeline-mark">01</div>
+                <p class="timeline-copy"><strong>Discover</strong> — Research agent scans on-chain data, social signals, market feeds</p>
+              </div>
+              <div class="timeline-row">
+                <div class="timeline-mark">02</div>
+                <p class="timeline-copy"><strong>Score</strong> — Seven-dimension composite scoring filters noise from signal</p>
+              </div>
+              <div class="timeline-row">
+                <div class="timeline-mark">03</div>
+                <p class="timeline-copy"><strong>Backtest</strong> — Trading agent tests candidates against multiple strategies</p>
+              </div>
+              <div class="timeline-row">
+                <div class="timeline-mark">04</div>
+                <p class="timeline-copy"><strong>Execute</strong> — Paper by default, live when you approve</p>
+              </div>
             </div>
 
             <div class="signal-prose">
@@ -890,14 +877,24 @@
 
             <blockquote class="signal-pullquote">Paper mode is the default. The system protects you from itself.</blockquote>
 
-            <div class="signal-compare">
-              <article class="compare-card">
-                <p class="compare-label">Manual Trading</p>
-                <p class="compare-copy">You watch charts, react to Twitter, FOMO in at 3am, fat-finger a trade, and forget to set a stop loss. Your strategy is whatever you feel like today.</p>
+            <p class="signal-start-cue">Ready to start?</p>
+            <div class="start-grid">
+              <article class="start-card">
+                <div class="start-top">
+                  <span class="start-label">0xCLAW + RAILWAY</span>
+                  <span class="badge-mini">Recommended</span>
+                </div>
+                <p class="start-copy">Deploy on Railway with pre-configured profiles — paper mode, safe defaults, Telegram connected and ready.</p>
+                <div class="start-cta"><a href="https://github.com/wrensignal/0xClaw/blob/main/RAILWAY_DEPLOY.md" target="_blank" rel="noreferrer">Deploy Now →</a></div>
               </article>
-              <article class="compare-card">
-                <p class="compare-label accent">0xClaw Agent</p>
-                <p class="compare-copy">Your agent monitors 24/7, scores candidates algorithmically, backtests before acting, degrades gracefully when data is bad, and only executes when the evidence clears the gate.</p>
+
+              <article class="start-card">
+                <div class="start-top">
+                  <span class="start-label">SELF-HOSTED</span>
+                  <span class="badge-mini">Advanced</span>
+                </div>
+                <p class="start-copy">Add 0xClaw to your existing setup. Clone the repo, install profiles, wire MCP servers.</p>
+                <div class="start-cta"><a href="https://github.com/wrensignal/0xClaw" target="_blank" rel="noreferrer">View on GitHub →</a></div>
               </article>
             </div>
           </div>
@@ -920,45 +917,13 @@
               <div class="cred-stat-label">MCP tools</div>
             </div>
             <div>
-              <div class="cred-stat-number">20+</div>
+              <div class="cred-stat-number">17</div>
               <div class="cred-stat-label">Vendored skills</div>
             </div>
           </div>
 
           <div class="cred-prose">
-            <p>Two agents work in tandem — a research agent scans on-chain data, social signals, and market feeds to surface candidates. A trading agent backtests each one against multiple strategies and only promotes what passes the gate. Briefs flow between them through a structured handoff contract.</p>
-            <p><code>paper mode</code> is the default. Live execution requires explicit approval. <code>confidence tiers</code> degrade gracefully when data quality drops — from normal operation down to hold-and-observe. Everything is open source and Apache-2.0 licensed. Inspect it all.</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="start" id="get-started">
-        <div class="container">
-          <div class="start-head">
-            <p class="start-kicker">GET STARTED</p>
-            <div class="eyebrow-divider" aria-hidden="true"></div>
-            <h2 class="start-title">First trade in two minutes.</h2>
-            <p class="start-sub">Launch your agent with one click — or clone and configure yourself.</p>
-          </div>
-
-          <div class="start-grid">
-            <article class="start-card">
-              <div class="start-top">
-                <span class="start-label">0xCLAW + RAILWAY</span>
-                <span class="badge-mini">Recommended</span>
-              </div>
-              <p class="start-copy">Deploy on Railway with pre-configured profiles — paper mode, safe defaults, Telegram connected and ready.</p>
-              <div class="start-cta"><a href="../RAILWAY_DEPLOY.md">Deploy Now →</a></div>
-            </article>
-
-            <article class="start-card">
-              <div class="start-top">
-                <span class="start-label">SELF-HOSTED</span>
-                <span class="badge-mini">Advanced</span>
-              </div>
-              <p class="start-copy">Add 0xClaw to your existing setup. Clone the repo, install profiles, wire MCP servers.</p>
-              <div class="start-cta"><a href="https://github.com/wrensignal/0xClaw" target="_blank" rel="noreferrer">View on GitHub →</a></div>
-            </article>
+            <p>Two agents work in tandem — a research agent surfaces candidates, a trading agent backtests and promotes what passes the gate. Briefs flow between them through a structured handoff contract. Seven profile templates cover the full range from research-only to live-disabled. Everything is open source and Apache-2.0 licensed.</p>
           </div>
         </div>
       </section>
@@ -966,6 +931,8 @@
       <section class="toolkit" id="whats-in-the-box">
         <div class="container">
           <div class="toolkit-head">
+            <p class="toolkit-kicker">TOOLKIT</p>
+            <div class="eyebrow-divider" aria-hidden="true"></div>
             <h2 class="toolkit-title">310+ tools across 4 servers, 17 skills, and 2 agent packs.</h2>
             <p class="toolkit-sub">Everything vendored. Nothing to configure. Works out of the box.</p>
           </div>
@@ -973,7 +940,7 @@
           <div class="toolkit-grid">
             <article class="tool-card">
               <div class="tool-top">
-                <span class="tool-iconbox" aria-hidden="true"><span class="tool-icon">􀇵</span></span>
+                <span class="tool-icon" aria-hidden="true"><svg class="icon-lucide" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5"/><path d="M3 12c0 1.7 4 3 9 3s9-1.3 9-3"/></svg></span>
                 <p class="tool-count">49 tools</p>
               </div>
               <h3 class="tool-title">MARKET INTELLIGENCE</h3>
@@ -982,7 +949,7 @@
 
             <article class="tool-card">
               <div class="tool-top">
-                <span class="tool-iconbox" aria-hidden="true"><span class="tool-icon">􀨕</span></span>
+                <span class="tool-icon" aria-hidden="true"><svg class="icon-lucide" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l2.12-2.12a5 5 0 0 0-7.07-7.07L11.3 5.65"/><path d="M14 11a5 5 0 0 0-7.54-.54L4.34 12.58a5 5 0 0 0 7.07 7.07l1.3-1.3"/></svg></span>
                 <p class="tool-count">~200 tools</p>
               </div>
               <h3 class="tool-title">ON-CHAIN DATA</h3>
@@ -991,7 +958,7 @@
 
             <article class="tool-card">
               <div class="tool-top">
-                <span class="tool-iconbox" aria-hidden="true"><span class="tool-icon">􀖇</span></span>
+                <span class="tool-icon" aria-hidden="true"><svg class="icon-lucide" viewBox="0 0 24 24"><path d="M8.5 14.5A4.5 4.5 0 1 0 15 21c2.5-1.5 4-4.2 4-7.2C19 8.8 14.8 5.2 12 3c0 3-2 4.5-3.8 6.3C6.3 11.2 5 13.2 5 15.5A5.5 5.5 0 0 0 10.5 21"/></svg></span>
                 <p class="tool-count">36 tools</p>
               </div>
               <h3 class="tool-title">BONDING CURVES</h3>
@@ -1000,7 +967,7 @@
 
             <article class="tool-card">
               <div class="tool-top">
-                <span class="tool-iconbox" aria-hidden="true"><span class="tool-icon">􀤆</span></span>
+                <span class="tool-icon" aria-hidden="true"><svg class="icon-lucide" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="8" rx="2"/><rect x="2" y="13" width="20" height="8" rx="2"/><line x1="6" y1="7" x2="6.01" y2="7"/><line x1="6" y1="17" x2="6.01" y2="17"/></svg></span>
                 <p class="tool-count">~25 tools</p>
               </div>
               <h3 class="tool-title">SOLANA RPC</h3>
@@ -1009,7 +976,7 @@
 
             <article class="tool-card">
               <div class="tool-top">
-                <span class="tool-iconbox" aria-hidden="true"><span class="tool-icon">􀉞</span></span>
+                <span class="tool-icon" aria-hidden="true"><svg class="icon-lucide" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>
                 <p class="tool-count">17 vendored</p>
               </div>
               <h3 class="tool-title">SKILLS</h3>
@@ -1018,7 +985,7 @@
 
             <article class="tool-card">
               <div class="tool-top">
-                <span class="tool-iconbox" aria-hidden="true"><span class="tool-icon">􀯷</span></span>
+                <span class="tool-icon" aria-hidden="true"><svg class="icon-lucide" viewBox="0 0 24 24"><path d="m7.5 4.3 9 5.2"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/><path d="m20.7 7-8.7-5-8.7 5v10l8.7 5 8.7-5Z"/></svg></span>
                 <p class="tool-count">2 ready-made</p>
               </div>
               <h3 class="tool-title">AGENT PACKS</h3>
@@ -1028,13 +995,27 @@
         </div>
       </section>
 
+      <section class="closing">
+        <div class="container">
+          <div class="closing-rule" aria-hidden="true"></div>
+          <div class="closing-wrap">
+            <h2 class="closing-title">Start building.</h2>
+            <p class="closing-copy">For agents — install the MCP skill and let your agent self-configure.<br />For humans — read the quick start or deploy on Railway in one click.</p>
+            <div class="closing-links">
+              <a href="https://github.com/wrensignal/0xClaw" target="_blank" rel="noreferrer">Read the docs →</a>
+              <a href="https://github.com/wrensignal/0xClaw/blob/main/RAILWAY_DEPLOY.md" target="_blank" rel="noreferrer">Deploy on Railway →</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <footer class="site-footer">
         <div class="container">
           <div class="footer-rule" aria-hidden="true"></div>
           <div class="footer-links" aria-label="Footer links">
             <a href="https://github.com/wrensignal/0xClaw" target="_blank" rel="noreferrer">GitHub</a>
-            <a href="../README.md#quick-start">Docs</a>
-            <a href="https://speakeasy.com" target="_blank" rel="noreferrer">Speakeasy</a>
+            <a href="https://github.com/wrensignal/0xClaw" target="_blank" rel="noreferrer">Docs</a>
+            <a href="https://speakeasyapi.dev" target="_blank" rel="noreferrer">Speakeasy</a>
             <a href="https://openclaw.com" target="_blank" rel="noreferrer">OpenClaw</a>
             <span>Apache-2.0</span>
           </div>
@@ -1042,19 +1023,5 @@
         </div>
       </footer>
     </main>
-    <div class="scroll-indicator">Scroll</div>
-    <script>
-      const indicator = document.querySelector('.scroll-indicator');
-      const fadeDistance = 160;
-      const onScroll = () => {
-        if (!indicator) return;
-        const y = window.scrollY || 0;
-        const t = Math.max(0, 1 - Math.min(y / fadeDistance, 1));
-        indicator.classList.toggle('is-scrolled', y > 0);
-        indicator.style.opacity = String(0.52 * t);
-      };
-      window.addEventListener('scroll', onScroll, { passive: true });
-      onScroll();
-    </script>
   </body>
 </html>
