@@ -3,16 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>0xClaw — Solana memecoins</title>
-    <meta name="description" content="0xClaw gives you the tools to build, validate, and run your own Solana memecoin strategy with evidence-based agent workflows, paper-first execution, and open-source control." />
+    <title>WrenOS</title>
+    <meta name="description" content="WrenOS gives you the tools to build, validate, and run your own Solana memecoin strategy with evidence-based agent workflows, paper-first execution, and open-source control." />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="0xClaw — Solana memecoins" />
+    <meta property="og:title" content="WrenOS — Solana memecoins" />
     <meta property="og:description" content="Build and run your own strategy: discover, score, validate, execute. Paper mode by default, open-source under Apache-2.0." />
     <meta property="og:url" content="https://0x-claw-site.vercel.app/" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="0xClaw — Solana memecoins" />
+    <meta name="twitter:title" content="WrenOS — Solana memecoins" />
     <meta name="twitter:description" content="Evidence-first agent workflow for your strategy: discover, score, validate, execute." />
     <link rel="canonical" href="https://0x-claw-site.vercel.app/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/svg+xml" href="./favicon/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="96x96" href="./favicon/favicon-96x96.png" />
+    <link rel="icon" href="./favicon/favicon.ico" />
+    <link rel="manifest" href="./favicon/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Libre+Baskerville:wght@400&display=swap" rel="stylesheet" />
@@ -113,6 +118,14 @@
         font-size: 22px;
         font-weight: var(--regular);
         letter-spacing: -0.01em;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .wordmark img {
+        width: 30px;
+        height: 30px;
+        object-fit: contain;
       }
       .nav-links {
         display: flex;
@@ -896,7 +909,7 @@
   <body>
     <header class="nav">
       <div class="container nav-inner">
-        <div class="wordmark">0xClaw</div>
+        <div class="wordmark"><img src="./assets/wren-white.png" alt="" aria-hidden="true" />WrenOS</div>
         <nav class="nav-links" aria-label="Primary">
           <a href="https://github.com/wrensignal/0xClaw" target="_blank" rel="noreferrer">Docs</a>
           <a href="https://api.speakeasyrelay.com" target="_blank" rel="noreferrer">Speakeasy</a>
@@ -909,7 +922,7 @@
       <section class="hero">
         <div class="container hero-layout">
           <div class="hero-top">
-            <h1>Our agent's trading stack for Solana memecoins.</h1>
+            <h1>Your agent's trading stack for Solana memecoins.</h1>
             <p class="sub">Open source trading agents with private inference and safe defaults.</p>
           </div>
 
@@ -918,7 +931,7 @@
               <span class="tool-icon" aria-hidden="true"><svg class="icon-lucide" viewBox="0 0 24 24"><path d="M12 3v6"/><path d="M6 9h12"/><rect x="4" y="9" width="16" height="10" rx="2"/><path d="M8 13h.01"/><path d="M12 13h.01"/><path d="M16 13h.01"/><path d="M8 17h8"/></svg></span>
               <div class="start-body">
                 <div class="start-top">
-                  <span class="start-label caps-label">0xClaw OpenClaw</span>
+                  <span class="start-label caps-label">WrenOS OpenClaw</span>
                 </div>
                 <p class="start-copy">Easy. Safe. Deploy in one-click.</p>
               </div>
@@ -966,7 +979,7 @@
             <div class="start-grid">
               <article class="start-card primary" data-href="https://github.com/wrensignal/0xClaw/blob/main/RAILWAY_DEPLOY.md">
                 <div class="start-top">
-                  <span class="start-label-row"><span class="tool-icon" aria-hidden="true"><svg class="icon-lucide" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="14" rx="2"/><path d="M8 7h8"/><path d="M8 11h8"/><circle cx="8.5" cy="14.5" r="1"/><circle cx="15.5" cy="14.5" r="1"/><path d="m6 17-2 3"/><path d="m18 17 2 3"/></svg></span><span class="start-label caps-label">0xCLAW + RAILWAY</span></span>
+                  <span class="start-label-row"><span class="tool-icon" aria-hidden="true"><svg class="icon-lucide" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="14" rx="2"/><path d="M8 7h8"/><path d="M8 11h8"/><circle cx="8.5" cy="14.5" r="1"/><circle cx="15.5" cy="14.5" r="1"/><path d="m6 17-2 3"/><path d="m18 17 2 3"/></svg></span><span class="start-label caps-label">WrenOS + RAILWAY</span></span>
                   <span class="badge-mini reco caps-label">Recommended</span>
                 </div>
                 <h3 class="start-card-title">Deploy in one click</h3>
@@ -980,7 +993,7 @@
                   <span class="badge-mini caps-label">Advanced</span>
                 </div>
                 <h3 class="start-card-title">Already running OpenClaw?</h3>
-                <p class="start-copy">Add 0xClaw to your existing setup. Clone the repo, install profiles, wire MCP servers. Full control over every config.</p>
+                <p class="start-copy">Add WrenOS to your existing setup. Clone the repo, install profiles, wire MCP servers. Full control over every config.</p>
                 <div class="start-cta"><a href="https://github.com/wrensignal/0xClaw" target="_blank" rel="noreferrer">View on GitHub →</a></div>
               </article>
             </div>
@@ -1010,7 +1023,7 @@
           </div>
 
           <div class="cred-prose">
-            <p>0xClaw runs as an inspectable OpenClaw system. Agent coordination, handoffs, and execution controls are explicit and auditable. Research and strategy evaluation are separated by design. Execution defaults to <code>paper mode</code>.</p>
+            <p>WrenOS runs as an inspectable OpenClaw system. Agent coordination, handoffs, and execution controls are explicit and auditable. Research and strategy evaluation are separated by design. Execution defaults to <code>paper mode</code>.</p>
             <blockquote class="signal-pullquote">Every token earns its way in: discovered, scored, stress-tested, or rejected.</blockquote>
             <p>Strategy inference routes through Speakeasy for private models with zero content logging. Your agent can reason about MEV strategies, analyze arbitrage patterns, and evaluate opportunities that frontier models refuse to discuss. Four model routes: <code>deepseek-v3.2</code> for research, <code>qwen3-thinking</code> for deep reasoning, <code>qwen3-coder</code> for refinement, <code>venice-uncensored</code> for unrestricted analysis.</p>
             <p>Fail-safe controls are built in: <code>confidence tiers</code> automatically degrade as data quality drops, reducing risk before execution. Everything is open source under <code>Apache-2.0</code>, so you can inspect the full stack end to end.</p>
