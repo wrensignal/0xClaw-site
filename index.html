@@ -20,7 +20,7 @@
     <link rel="manifest" href="./favicon/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Libre+Baskerville:wght@400&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
     <style>
       :root {
         --bg: rgb(10, 10, 12);
@@ -33,12 +33,12 @@
         --accentSoft2: rgba(196, 164, 108, 0.16);
         --border: rgba(255,255,255,0.06);
 
-        --fontBody: 'DM Sans', system-ui, sans-serif;
-        --fontDisplay: 'Libre Baskerville', Georgia, serif;
-        --fontSecondary: 'DM Sans', system-ui, sans-serif;
-        --fontMono: 'SF Mono', ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono', monospace;
+        --fontBody: 'IBM Plex Sans', system-ui, sans-serif;
+        --fontDisplay: 'Source Serif 4', Georgia, serif;
+        --fontSecondary: 'IBM Plex Sans', system-ui, sans-serif;
+        --fontMono: 'JetBrains Mono', 'SF Mono', ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono', monospace;
 
-        --h1: clamp(64px, 8vw, 96px);
+        --h1: clamp(68px, 8.4vw, 102px);
         --body: 18px;
         --small: 14px;
 
@@ -158,22 +158,6 @@
         padding-top: calc(var(--sectionY) - 24px);
         padding-bottom: calc(var(--sectionY) - 8px);
         overflow: hidden;
-      }
-      .hero::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background-image: repeating-linear-gradient(
-          to bottom,
-          rgba(255, 255, 255, 0.03) 0,
-          rgba(255, 255, 255, 0.03) 1px,
-          transparent 1px,
-          transparent 132px
-        );
-        -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.98) 0%, rgba(0, 0, 0, 0.82) 64%, rgba(0, 0, 0, 0.52) 86%, rgba(0, 0, 0, 0.24) 96%, transparent 100%);
-        mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.98) 0%, rgba(0, 0, 0, 0.82) 64%, rgba(0, 0, 0, 0.52) 86%, rgba(0, 0, 0, 0.24) 96%, transparent 100%);
-        pointer-events: none;
-        z-index: 0;
       }
       .hero::after {
         content: "";
@@ -1299,7 +1283,7 @@
             <a href="https://api.speakeasyrelay.com" target="_blank" rel="noreferrer">Speakeasy</a>
             <a href="https://openclaw.com" target="_blank" rel="noreferrer">OpenClaw</a>
           </div>
-          <p class="footer-colophon">Set in Libre Baskerville and DM Sans. Built on OpenClaw. Last updated March 2026.</p>
+          <p class="footer-colophon">Set in Source Serif 4 and IBM Plex Sans. Built on OpenClaw. Last updated March 2026.</p>
         </div>
       </footer>
     </main>
