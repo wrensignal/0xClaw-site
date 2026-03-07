@@ -95,7 +95,7 @@
       .container {
         width: min(var(--maxWidth), 100%);
         margin-inline: auto;
-        padding-inline: var(--sectionX);
+        padding-inline: 48px;
       }
 
       .nav {
@@ -163,10 +163,10 @@
         content: "";
         position: absolute;
         left: max(var(--sectionX), calc((100vw - var(--maxWidth)) / 2 + var(--sectionX)));
-        top: 34%;
+        top: 36%;
         width: 540px;
         height: 540px;
-        background: url('./assets/wren-white.png') center/contain no-repeat;
+        background: url('./assets/wren-white.png') left center/contain no-repeat;
         transform: translateY(-50%);
         opacity: 0.05;
         pointer-events: none;
@@ -1046,6 +1046,13 @@
       }
 
       @media (max-width: 860px) {
+        .hero::after {
+          top: 36%;
+          opacity: 0.045;
+        }
+        h1 {
+          font-size: clamp(52px, 12vw, 72px);
+        }
         .hero-layout {
           min-height: auto;
           gap: var(--componentGap);
@@ -1061,6 +1068,82 @@
         }
         .how-card::after { display: none; }
       }
+      @media (max-width: 774px) {
+        .container {
+          padding-inline: clamp(30px, 6vw, 48px);
+        }
+        .hero::after {
+          width: clamp(300px, calc(80vw - 2px), 540px);
+          height: clamp(300px, calc(80vw - 2px), 540px);
+        }
+      }
+      @media (max-width: 640px) {
+        .mobile-hide {
+          display: none !important;
+        }
+        .signal-flow {
+          position: relative;
+          display: grid;
+          gap: 12px;
+          padding-left: 24px;
+          margin: 36px 0;
+        }
+        .signal-flow::before {
+          content: none;
+        }
+        .signal-flow .flow-arrow {
+          display: none;
+        }
+        .signal-flow .flow-pill {
+          position: relative;
+          border: 0;
+          background: transparent;
+          padding: 0;
+          color: rgba(160, 165, 178, 0.86);
+          letter-spacing: 0.08em;
+        }
+        .signal-flow .flow-pill::before {
+          content: "";
+          position: absolute;
+          left: -19px;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          background: rgba(160, 165, 178, 0.28);
+          box-shadow: 0 0 0 1px rgba(160, 165, 178, 0.08);
+        }
+        .signal-flow .flow-pill:not(:last-child)::after {
+          content: "";
+          position: absolute;
+          left: -16px;
+          top: calc(50% + 6px);
+          width: 1px;
+          height: 20px;
+          background: rgba(160, 165, 178, 0.28);
+        }
+        .signal-flow .flow-pill.outcome {
+          color: rgba(196, 164, 108, 0.95);
+        }
+        .signal-flow .flow-pill.outcome::before {
+          background: rgba(196, 164, 108, 0.82);
+          box-shadow: 0 0 0 1px rgba(196, 164, 108, 0.2);
+        }
+      }
+      @media (max-width: 480px) {
+        .hero::after {
+          top: 36%;
+          opacity: 0.04;
+        }
+      }
+      @media (max-width: 389px) {
+        .hero {
+          height: auto;
+          min-height: calc(100vh - var(--navH));
+          overflow: visible;
+        }
+      }
     </style>
   </head>
   <body>
@@ -1070,7 +1153,7 @@
         <nav class="nav-links" aria-label="Primary">
           <a href="https://github.com/wrensignal/0xClaw" target="_blank" rel="noreferrer">Docs</a>
           <a href="https://api.speakeasyrelay.com" target="_blank" rel="noreferrer">Speakeasy</a>
-          <a class="link-btn" href="https://github.com/wrensignal/0xClaw#quick-start" target="_blank" rel="noreferrer">DEPLOY</a>
+          <a class="link-btn mobile-hide" href="https://github.com/wrensignal/0xClaw#quick-start" target="_blank" rel="noreferrer">DEPLOY</a>
         </nav>
       </div>
     </header>
