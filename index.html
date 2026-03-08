@@ -123,10 +123,11 @@
         gap: 10px;
       }
       .wordmark img {
-        width: 30px;
-        height: 30px;
+        width: 28px;
+        height: 28px;
         object-fit: contain;
         opacity: 0.72;
+        transform: translateY(1px);
       }
       .nav-links {
         display: flex;
@@ -284,6 +285,73 @@
       .hero-cards .start-card.primary[data-href]:hover {
         border-color: rgba(196, 164, 108, 0.24);
         background: linear-gradient(180deg, rgba(196, 164, 108, 0.065) 0%, #151518 42%);
+      }
+
+      .product-strip {
+        padding-top: 120px;
+        padding-bottom: 120px;
+      }
+      .product-strip-wrap {
+        max-width: 720px;
+      }
+      .product-strip-kicker {
+        margin: 0;
+        color: var(--accent);
+      }
+      .product-strip-title {
+        margin: 14px 0 0;
+        font-family: var(--fontDisplay);
+        font-size: clamp(34px, 4vw, 48px);
+        line-height: 1.1;
+        font-weight: var(--regular);
+        color: var(--text);
+        text-wrap: balance;
+      }
+      .product-strip-copy {
+        margin: 32px 0 0;
+        color: var(--textMuted);
+        font-size: 17px;
+        line-height: 1.6;
+      }
+      .product-strip-list {
+        margin: 32px 0 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 16px;
+      }
+      .product-strip-list li {
+        position: relative;
+        padding-left: 18px;
+        color: var(--textMuted);
+        font-size: 17px;
+        line-height: 1.6;
+      }
+      .product-strip-list li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 11px;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: rgba(196, 164, 108, 0.82);
+      }
+      .product-strip-item-title {
+        display: block;
+        color: var(--text);
+        font-weight: var(--semibold);
+        line-height: 1.3;
+      }
+      .product-strip-item-body {
+        display: block;
+        margin-top: 2px;
+      }
+      .product-strip-note {
+        margin: 18px 0 0;
+        color: var(--text);
+        font-size: 17px;
+        line-height: 1.6;
       }
 
       .signal {
@@ -930,7 +998,7 @@
         width: 100%;
       }
       .resources-head {
-        max-width: 720px;
+        max-width: none;
         margin-top: 96px;
       }
       .resources-title {
@@ -942,11 +1010,11 @@
         color: var(--text);
       }
       .resources-copy {
-        margin: 14px 0 0;
+        margin: 32px 0 0;
         color: var(--textMuted);
         font-size: 17px;
         line-height: 1.6;
-        max-width: 680px;
+        max-width: none;
       }
       .resources-grid {
         margin-top: 32px;
@@ -1151,7 +1219,7 @@
       <div class="container nav-inner">
         <div class="wordmark"><img src="./assets/wren-white.png" alt="" aria-hidden="true" />WrenOS</div>
         <nav class="nav-links" aria-label="Primary">
-          <a href="https://github.com/wrensignal/0xClaw" target="_blank" rel="noreferrer">Docs</a>
+          <a href="/docs/">Docs</a>
           <a href="https://api.speakeasyrelay.com" target="_blank" rel="noreferrer">Speakeasy</a>
           <a class="link-btn mobile-hide" href="https://github.com/wrensignal/0xClaw#quick-start" target="_blank" rel="noreferrer">DEPLOY</a>
         </nav>
@@ -1162,8 +1230,8 @@
       <section class="hero">
         <div class="container hero-layout">
           <div class="hero-top">
-            <h1>Your agent's trading stack for Solana memecoins.</h1>
-            <p class="sub">Open source trading agents with private inference and verifiable execution.</p>
+            <h1>The operating system for Solana memecoin trading agents.</h1>
+            <p class="sub">WrenOS is an open-source framework for researching, backtesting, and executing Solana memecoin trading strategies. It is built for paper-first testing, auditable agent workflows, and private model routing.</p>
           </div>
 
           <div class="hero-cards">
@@ -1173,7 +1241,7 @@
                 <div class="start-top">
                   <span class="start-label caps-label">DEPLOY WRENOS</span>
                 </div>
-                <p class="start-copy">Easy. Safe. Deploy in one-click.</p>
+                <p class="start-copy">Easy. Fast. Deploy in minutes.</p>
               </div>
             </article>
 
@@ -1191,6 +1259,35 @@
         </div>
       </section>
 
+      <section class="product-strip" id="what-wrenos-is">
+        <div class="container">
+          <div class="product-strip-wrap">
+            <p class="product-strip-kicker caps-label">WHAT WRENOS IS</p>
+            <div class="eyebrow-divider" aria-hidden="true"></div>
+            <h2 class="product-strip-title">WrenOS is a multi-agent trading framework for Solana memecoins.</h2>
+            <p class="product-strip-copy">Designed for operators who want more than a black box: research, scoring, validation, and execution are separated into explicit stages you can inspect, tune, and override.</p>
+            <ul class="product-strip-list" aria-label="WrenOS workflow definition">
+              <li>
+                <strong class="product-strip-item-title">Two-agent workflow</strong>
+                <span class="product-strip-item-body">Guide a Research Agent with what to look for and let it scan built-in market, on-chain, and token lifecycle tools to discover and score candidates. A Trading Agent then validates the setup against your strategy rules and only proceeds when the trade clears your criteria.</span>
+              </li>
+              <li>
+                <strong class="product-strip-item-title">Private strategy routing</strong>
+                <span class="product-strip-item-body">Some market scenarios are niche, adversarial, or highly idiosyncratic. WrenOS lets users route strategy reasoning through private models when needed, while keeping the broader workflow inspectable and under operator control.</span>
+              </li>
+              <li>
+                <strong class="product-strip-item-title">Secure by controls</strong>
+                <span class="product-strip-item-body">WrenOS starts in paper mode so you can validate behavior before risking capital. Live execution is opt-in, and execution decisions are separated from custody so sensitive signing stays in your wallet.</span>
+              </li>
+              <li>
+                <strong class="product-strip-item-title">Ready-to-use tool stack</strong>
+                <span class="product-strip-item-body">WrenOS ships with a deep tool layer for market intelligence, on-chain data, Solana execution context, and meme token lifecycle workflows. Spend less time wiring APIs and more time testing ideas.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
       <section class="signal" id="from-signal-to-trade">
         <div class="container">
           <div class="signal-wrap">
@@ -1199,8 +1296,8 @@
             <h2 class="signal-title">Agents that trade on evidence, not vibes.</h2>
 
             <div class="signal-prose">
-              <p>This isn't a black-box that trades for you.</p>
-              <p>It's a structured pipeline you control with research, scoring, backtesting, and execution as separate stages you can inspect, tune, and override. The system gives you tooling and guardrails. The strategy is yours.</p>
+              <p>WrenOS is not a black box that trades for you.</p>
+              <p>It's a structured pipeline you control, with research, scoring, backtesting, and execution handled as separate stages you can inspect, tune, and override. The system provides tooling and guardrails. The strategy is yours.</p>
             </div>
 
             <div class="signal-flow" aria-label="Signal to trade flow">
@@ -1222,7 +1319,7 @@
                 <div class="start-top">
                   <span class="start-label caps-label">DEPLOY IN ONE CLICK</span>
                 </div>
-                <p class="start-copy">Deploy on Railway with pre-configured profiles. Connect to Telegram, set your env vars and you're trading in minutes.</p>
+                <p class="start-copy">Launch on Railway with preconfigured profiles, connect Telegram, add your environment variables, and you're trading in minutes.</p>
               </article>
 
               <article class="start-card" data-href="https://github.com/wrensignal/0xClaw">
@@ -1230,7 +1327,7 @@
                 <div class="start-top">
                   <span class="start-label caps-label">ALREADY RUNNING OPENCLAW?</span>
                 </div>
-                <p class="start-copy">Add WrenOS to your existing setup. Clone the repo, install profiles, wire MCP servers. Full control over every config.</p>
+                <p class="start-copy">Add WrenOS to an existing OpenClaw setup. Clone the repo, install the profiles, wire the MCP servers, and keep full control over every config.</p>
               </article>
             </div>
           </div>
@@ -1241,24 +1338,23 @@
         <div class="container">
           <div class="cred-kicker caps-label">BUILT ON OPENCLAW</div>
           <div class="eyebrow-divider" aria-hidden="true"></div>
-          <h2 class="cred-heading">Real infrastructure, not a whitepaper.</h2>
+          <h2 class="cred-heading">Real infrastructure, not a black box.</h2>
 
           <div class="cred-stats" aria-label="System inventory">
-            <p class="inventory-label">WrenOS</p>
-            <p class="inventory-command"><span class="prompt">%</span> /system inventory</p>
+            <p class="inventory-label">/system inventory</p>
             <ul class="inventory-list">
               <li class="inventory-row"><span class="inventory-key">agent_profiles</span><span class="inventory-val">7</span></li>
               <li class="inventory-row"><span class="inventory-key">mcp_tools</span><span class="inventory-val">310+</span></li>
               <li class="inventory-row"><span class="inventory-key">vendored_skills</span><span class="inventory-val">17</span></li>
             </ul>
-            <p class="inventory-prompt"><span class="prompt">%</span><span class="inventory-cursor" aria-hidden="true"></span></p>
+
           </div>
 
           <div class="cred-prose">
-            <p>WrenOS runs as an inspectable OpenClaw system. Agent coordination, handoffs, and execution controls are explicit and auditable. Research and strategy evaluation are separated by design.</p>
-            <blockquote class="cred-pullquote">Every token earns its way in: discovered, scored, stress-tested, or rejected.</blockquote>
-            <p>Strategy inference routes through Speakeasy for private models with zero content logging. Research agents evaluate signals and strategies across multiple reasoning models.</p>
-            <p>Execution begins in paper mode by default, and fail-safe controls are built in. Confidence tiers automatically degrade as data quality drops, reducing risk before execution. Everything is open source under Apache-2.0 so you can inspect the full stack end to end.</p>
+            <p>WrenOS runs as an inspectable OpenClaw system. Agent coordination, handoffs, and execution controls are explicit and auditable by design. Wallet custody stays separate from agent decision-making.</p>
+            <blockquote class="cred-pullquote">Everything is open source under Apache-2.0 so you can inspect the full stack end to end.</blockquote>
+            <p>Research, strategy evaluation, and execution are separated into distinct steps so you can understand how a trade was surfaced, how it was scored, and why it was approved or rejected.</p>
+            <p>Strategy reasoning can route through private models via Speakeasy, while execution begins in paper mode by default and can degrade safely as data quality drops.</p>
           </div>
         </div>
       </section>
@@ -1268,8 +1364,7 @@
           <div class="toolkit-head">
             <p class="toolkit-kicker caps-label">TOOLKIT</p>
             <div class="eyebrow-divider" aria-hidden="true"></div>
-            <h2 class="toolkit-title">310+ tools across 4 servers, 17 skills, and 2 agent packs.</h2>
-            <p class="toolkit-sub">Everything vendored. Nothing to configure. Works out of the box.</p>
+            <h2 class="toolkit-title">A pre-wired stack for research, validation, and execution.</h2>
           </div>
 
           <div class="toolkit-grid">
@@ -1279,16 +1374,16 @@
                 <p class="tool-count">49 tools</p>
               </div>
               <h3 class="tool-title caps-label">MARKET INTELLIGENCE</h3>
-              <p class="tool-desc">Real-time crypto news, DeFi analytics, whale alerts, funding rates, and market sentiment — all through a single MCP server. Your agent gets market context without scraping or API key juggling.</p>
+              <p class="tool-desc">Real-time crypto news, token analytics, whale alerts, funding rates, and market sentiment through a unified MCP layer. Give your agents live market context without juggling scattered APIs.</p>
             </article>
 
             <article class="tool-card">
               <div class="tool-top">
                 <span class="tool-icon" aria-hidden="true"><svg class="icon-lucide" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l2.12-2.12a5 5 0 0 0-7.07-7.07L11.3 5.65"/><path d="M14 11a5 5 0 0 0-7.54-.54L4.34 12.58a5 5 0 0 0 7.07 7.07l1.3-1.3"/></svg></span>
-                <p class="tool-count">~200 tools</p>
+                <p class="tool-count">200+ tools</p>
               </div>
               <h3 class="tool-title caps-label">ON-CHAIN DATA</h3>
-              <p class="tool-desc">Full-stack crypto data layer covering EVM chains, DeFi protocols, DEX analytics, and wallet tracking. The broadest single MCP server in the stack.</p>
+              <p class="tool-desc">A broad Solana data layer covering DEX analytics, token flows, and wallet tracking. Use it to compare flows, inspect on-chain behavior, and validate momentum beyond surface-level signals.</p>
             </article>
 
             <article class="tool-card">
@@ -1297,16 +1392,16 @@
                 <p class="tool-count">36 tools</p>
               </div>
               <h3 class="tool-title caps-label">BONDING CURVES</h3>
-              <p class="tool-desc">Direct interface to pump.fun — quote trades, build token creation transactions, track graduation progress, manage fees. Purpose-built for meme token lifecycle.</p>
+              <p class="tool-desc">Direct interfaces for pump.fun workflows: quote trades, build token creation transactions, track graduation progress, and manage meme token lifecycle actions.</p>
             </article>
 
             <article class="tool-card">
               <div class="tool-top">
                 <span class="tool-icon" aria-hidden="true"><svg class="icon-lucide" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="8" rx="2"/><rect x="2" y="13" width="20" height="8" rx="2"/><line x1="6" y1="7" x2="6.01" y2="7"/><line x1="6" y1="17" x2="6.01" y2="17"/></svg></span>
-                <p class="tool-count">~25 tools</p>
+                <p class="tool-count">25+ tools</p>
               </div>
               <h3 class="tool-title caps-label">SOLANA RPC</h3>
-              <p class="tool-desc">Wallet balances, transaction history, token metadata, and asset search via Helius. No middleman between your agent and the chain.</p>
+              <p class="tool-desc">Wallet balances, transaction history, token metadata, and asset search via Helius. Direct chain context for agents operating on Solana.</p>
             </article>
 
             <article class="tool-card">
@@ -1315,7 +1410,7 @@
                 <p class="tool-count">17 vendored</p>
               </div>
               <h3 class="tool-title caps-label">SKILLS</h3>
-              <p class="tool-desc">Curated knowledge covering DeFi, security, Jupiter integration, whale watching, MEV protection, and more. Each skill loads when relevant — no training required.</p>
+              <p class="tool-desc">Curated knowledge for Solana trading workflows, security, Jupiter integration, whale watching, MEV protection, and more. Skills load when relevant so agents can self-configure around the task.</p>
             </article>
 
             <article class="tool-card">
@@ -1324,7 +1419,7 @@
                 <p class="tool-count">2 ready-made</p>
               </div>
               <h3 class="tool-title caps-label">AGENT PACKS</h3>
-              <p class="tool-desc">Dual Agent Pack for research-to-trading handoff. Meme Discovery Pack for the full pipeline — composite scoring, zoo-style strategy management, confidence tiers built in.</p>
+              <p class="tool-desc">Prebuilt packs for research-to-trading handoff and meme discovery workflows, including composite scoring, strategy management, and confidence tiering.</p>
             </article>
           </div>
         </div>
@@ -1335,21 +1430,21 @@
           <div class="resources-rule" aria-hidden="true"></div>
           <div class="resources-head">
             <h2 class="resources-title">Built for agents and humans.</h2>
-            <p class="resources-copy">Point your agent at the skill file and it self-configures. Or read the quickstart and deploy on Railway in two minutes. Everything is discoverable, inspectable, and documented.</p>
+            <p class="resources-copy">Point an agent at the root skill file and it can orient itself to the system. Or follow the quickstart and get a working deployment without digging through the entire repo first. Everything is documented, inspectable, and designed to be understandable from both the operator side and the agent side.</p>
           </div>
 
           <div class="resources-grid">
             <a class="resource-card" href="https://github.com/wrensignal/0xClaw" target="_blank" rel="noreferrer">
               <p class="resource-title caps-label">SKILL.md</p>
-              <p class="resource-desc">Root skill file — point your agent here to self-configure</p>
+              <p class="resource-desc">Root skill file for agent self-configuration and system orientation.</p>
             </a>
             <a class="resource-card" href="https://github.com/wrensignal/0xClaw#quick-start" target="_blank" rel="noreferrer">
               <p class="resource-title caps-label">QUICK START</p>
-              <p class="resource-desc">One-command install or Railway deploy — two minutes</p>
+              <p class="resource-desc">Fast install path for local setup or Railway deployment.</p>
             </a>
             <a class="resource-card" href="https://github.com/wrensignal/0xClaw" target="_blank" rel="noreferrer">
               <p class="resource-title caps-label">GITHUB</p>
-              <p class="resource-desc">Browse source, profiles, packs, skills, and adapters</p>
+              <p class="resource-desc">Browse the source, profiles, packs, skills, and adapters.</p>
             </a>
           </div>
 

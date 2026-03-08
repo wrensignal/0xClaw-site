@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WrenOS Docs</title>
+    <meta name="description" content="WrenOS documentation: setup, safety, CLI, architecture, and package reference." />
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/svg+xml" href="../favicon/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="96x96" href="../favicon/favicon-96x96.png" />
+    <link rel="icon" href="../favicon/favicon.ico" />
+    <link rel="manifest" href="../favicon/site.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: rgb(10, 10, 12);
+        --sidebar: #0e0e10;
+        --card: #141416;
+        --code: #111113;
+        --accent: rgb(196, 164, 108);
+        --text: rgba(255, 255, 255, 0.95);
+        --text-body: rgba(255, 255, 255, 0.7);
+        --muted: rgba(255, 255, 255, 0.4);
+        --border: rgba(255, 255, 255, 0.06);
+        --radius-sm: 8px;
+        --radius-md: 16px;
+        --nav-h: 56px;
+        --sidebar-w: 260px;
+        --toc-w: 200px;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; background: var(--bg); color: var(--text-body); }
+      body { font-family: "IBM Plex Sans", sans-serif; }
+      a { color: inherit; text-decoration: none; }
+
+      .top-nav {
+        position: sticky; top: 0; z-index: 40; height: var(--nav-h);
+        border-bottom: 1px solid var(--border); background: rgba(10,10,12,0.96); backdrop-filter: blur(8px);
+        display: flex; align-items: center; justify-content: center; padding: 0 24px;
+      }
+      .top-nav-inner {
+        width: min(1400px, 100%);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .brand { display: flex; align-items: center; gap: 12px; color: var(--text); }
+      .wordmark {
+        font-family: "Source Serif 4", serif;
+        font-size: 22px;
+        font-weight: 400;
+        letter-spacing: -0.01em;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--text);
+      }
+      .wordmark img {
+        width: 28px;
+        height: 28px;
+        object-fit: contain;
+        opacity: 0.72;
+        transform: translateY(1px);
+      }
+      .badge { font-size: 11px; padding: 3px 8px; border-radius: 8px; border: 1px solid rgba(196,164,108,0.45); color: var(--accent); letter-spacing: .08em; }
+      .top-right { display: flex; gap: 16px; align-items: center; }
+      .top-link { color: var(--muted); font-size: 14px; }
+      .top-link:hover { color: var(--text); }
+      .menu-btn { display: none; border: 1px solid var(--border); background: #121214; color: var(--text); width: 40px; height: 40px; border-radius: 8px; }
+
+      .layout {
+        display: grid;
+        grid-template-columns: var(--sidebar-w) minmax(0, 1fr) var(--toc-w);
+        gap: 40px;
+        width: min(1400px, 100% - 48px);
+        margin: 0 auto;
+        padding: 24px 0 64px;
+      }
+
+      .sidebar {
+        position: sticky; top: calc(var(--nav-h) + 12px); align-self: start;
+        max-height: calc(100vh - var(--nav-h) - 24px); overflow: auto;
+        background: var(--sidebar); border: 1px solid var(--border); border-radius: 12px; padding: 20px;
+      }
+      .nav-group + .nav-group { margin-top: 24px; }
+      .nav-label {
+        color: var(--accent); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 10px;
+      }
+      .nav-item {
+        display: block; font-size: 14px; color: rgba(255,255,255,.62); padding: 8px 8px 8px 12px; border-left: 2px solid transparent;
+      }
+      .nav-item:hover { color: rgba(255,255,255,.9); }
+      .nav-item.active { color: var(--accent); border-left-color: var(--accent); background: rgba(196,164,108,.08); }
+
+      .content { min-width: 0; width: 100%; max-width: 740px; justify-self: center; }
+      .page { display: none; }
+      .page.active { display: block; }
+      .kicker { color: var(--accent); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; margin: 0; }
+      h1 { font-family: "Source Serif 4", serif; font-size: clamp(34px, 4vw, 44px); color: var(--text); font-weight: 600; margin: 16px 0 0; line-height: 1.1; }
+      .subtitle { margin: 24px 0 0; font-size: 18px; line-height: 1.7; color: var(--text-body); }
+      h2 { font-family: "Source Serif 4", serif; color: var(--text); font-size: 28px; font-weight: 400; margin: 48px 0 0; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+      h3 { color: var(--text); font-size: 20px; font-weight: 600; margin: 32px 0 0; }
+      h4 { color: var(--text); font-size: 16px; font-weight: 600; margin: 24px 0 0; }
+      p, li { font-size: 16px; line-height: 1.7; color: var(--text-body); }
+      p { margin: 24px 0 0; }
+      ul { margin: 16px 0 0; padding-left: 20px; }
+      code.inline { font-family: "IBM Plex Mono", monospace; font-size: 14px; background: rgba(255,255,255,.06); padding: 2px 6px; border-radius: 4px; }
+
+      .stats-block {
+        margin-top: 32px; border: 1px solid var(--border); border-radius: 12px; background: #101012; padding: 18px;
+        font-family: "IBM Plex Mono", monospace;
+      }
+      .prompt { color: var(--accent); }
+      .inv-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px dashed rgba(255,255,255,.04); }
+      .inv-row:last-child { border-bottom: 0; }
+      .inv-key { color: rgba(255,255,255,.65); }
+      .inv-val { color: rgba(255,255,255,.95); }
+
+      .cards { margin-top: 32px; display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px; }
+      .card { border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--card); padding: 24px; display: grid; gap: 12px; }
+      .card:hover { border-color: rgba(255,255,255,.14); transform: translateY(-2px); transition: .16s ease; }
+      .card-title {
+        margin: 0;
+        color: var(--text);
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .card-copy { margin: 0; color: var(--text-body); font-size: 15px; line-height: 1.6; }
+
+      .code-wrap { margin-top: 24px; border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; background: var(--code); }
+      .code-top { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; border-bottom: 1px solid var(--border); font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--muted); }
+      .copy-btn { border: 1px solid var(--border); background: #18181a; color: var(--text-body); border-radius: 6px; font-size: 12px; padding: 4px 8px; cursor: pointer; }
+      .copy-btn:hover { color: var(--text); border-color: rgba(255,255,255,.2); }
+      pre { margin: 0; padding: 20px; overflow: auto; font: 14px/1.6 "IBM Plex Mono", monospace; color: rgba(255,255,255,.86); }
+      .tok-str { color: var(--accent); }
+      .tok-cmt { color: rgba(255,255,255,.34); }
+
+      .admonition { margin-top: 24px; border: 1px solid var(--border); border-left-width: 3px; border-radius: 8px; padding: 14px 16px; background: rgba(255,255,255,.02); }
+      .admonition strong { color: var(--text); }
+      .tip { border-left-color: var(--accent); }
+      .warn { border-left-color: #d89f4f; }
+
+      table { width: 100%; border-collapse: collapse; margin-top: 24px; }
+      th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--border); }
+      th { color: var(--text); font-weight: 600; }
+      td code { font-family: "IBM Plex Mono", monospace; }
+
+      .page-nav { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; gap: 16px; }
+      .page-nav a { color: var(--muted); font-size: 14px; }
+      .page-nav a:hover { color: var(--accent); }
+      .edit-link { margin-top: 24px; font-size: 13px; color: var(--muted); display: inline-block; }
+      .edit-link:hover { color: var(--accent); }
+
+      .toc {
+        position: sticky; top: calc(var(--nav-h) + 18px); align-self: start;
+        max-height: calc(100vh - var(--nav-h) - 24px); overflow: auto;
+      }
+      .toc-title { font-size: 12px; color: var(--muted); margin: 0 0 10px; }
+      .toc-link { display: block; font-size: 13px; color: rgba(255,255,255,.56); padding: 6px 0; }
+      .toc-link.active { color: var(--accent); }
+      .toc-link.level-3 { padding-left: 12px; }
+
+      @media (max-width: 1102px) {
+        .layout { grid-template-columns: var(--sidebar-w) minmax(0, 1fr); }
+        .toc { display: none; }
+      }
+      @media (max-width: 768px) {
+        .menu-btn { display: inline-flex; align-items: center; justify-content: center; }
+        .layout { grid-template-columns: 1fr; width: calc(100% - 32px); gap: 0; }
+        .sidebar {
+          position: fixed; top: var(--nav-h); left: 0; bottom: 0; width: min(320px, 92vw); border-radius: 0; z-index: 50;
+          transform: translateX(-102%); transition: transform .18s ease;
+        }
+        .sidebar.open { transform: translateX(0); }
+        .content { padding-top: 16px; }
+        .cards { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="top-nav">
+      <div class="top-nav-inner">
+        <div class="brand">
+          <button class="menu-btn" id="menuBtn" aria-label="Toggle docs menu">☰</button>
+          <div class="wordmark"><img src="../assets/wren-white.png" alt="" aria-hidden="true" />WrenOS</div>
+          <span class="badge">DOCS</span>
+        </div>
+        <div class="top-right">
+          <a class="top-link" href="../index.html">← Back to site</a>
+          <a class="top-link" href="https://github.com/wrensignal/wrenOS" target="_blank" rel="noreferrer">GitHub</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar" id="sidebar">
+        <nav>
+          <div class="nav-group"><div class="nav-label">Getting Started</div>
+            <a class="nav-item" href="#overview" data-page-link="overview">Overview</a>
+            <a class="nav-item" href="#quick-start" data-page-link="quick-start">Quick Start</a>
+            <a class="nav-item" href="#configuration" data-page-link="configuration">Configuration</a>
+            <a class="nav-item" href="#safety-posture" data-page-link="safety-posture">Safety Posture</a>
+          </div>
+          <div class="nav-group"><div class="nav-label">CLI</div>
+            <a class="nav-item" href="#cli-overview" data-page-link="cli-overview">CLI Overview</a>
+            <a class="nav-item" href="#cli-init" data-page-link="cli-init">wrenos init</a>
+            <a class="nav-item" href="#cli-doctor" data-page-link="cli-doctor">wrenos doctor</a>
+            <a class="nav-item" href="#cli-status" data-page-link="cli-status">wrenos status</a>
+            <a class="nav-item" href="#cli-config" data-page-link="cli-config">wrenos config</a>
+            <a class="nav-item" href="#cli-start" data-page-link="cli-start">wrenos start</a>
+          </div>
+          <div class="nav-group"><div class="nav-label">Packages</div>
+            <a class="nav-item" href="#packages-core" data-page-link="packages-core">Core</a>
+            <a class="nav-item" href="#packages-profiles" data-page-link="packages-profiles">Profiles</a>
+            <a class="nav-item" href="#packages-loops" data-page-link="packages-loops">Loops</a>
+            <a class="nav-item" href="#packages-adapters" data-page-link="packages-adapters">Adapters</a>
+            <a class="nav-item" href="#packages-speakeasy-ai" data-page-link="packages-speakeasy-ai">Speakeasy AI</a>
+          </div>
+          <div class="nav-group"><div class="nav-label">Packs</div>
+            <a class="nav-item" href="#pack-meme-discovery" data-page-link="pack-meme-discovery">Meme Discovery</a>
+            <a class="nav-item" href="#pack-research-agent" data-page-link="pack-research-agent">Research Agent</a>
+          </div>
+          <div class="nav-group"><div class="nav-label">Guides</div>
+            <a class="nav-item" href="#speakeasy-integration" data-page-link="speakeasy-integration">Speakeasy Integration</a>
+            <a class="nav-item" href="#railway-deploy" data-page-link="railway-deploy">Railway Deploy</a>
+            <a class="nav-item" href="#migrating" data-page-link="migrating">Migrating from 0xClaw</a>
+          </div>
+          <div class="nav-group"><div class="nav-label">Reference</div>
+            <a class="nav-item" href="#architecture" data-page-link="architecture">Architecture</a>
+            <a class="nav-item" href="#runtime-status" data-page-link="runtime-status">Runtime Status</a>
+            <a class="nav-item" href="#config-schema" data-page-link="config-schema">Config Schema</a>
+            <a class="nav-item" href="#changelog" data-page-link="changelog">CHANGELOG</a>
+          </div>
+        </nav>
+      </aside>
+
+      <main class="content" id="content">
+        <section class="page" data-page="overview">
+          <p class="kicker">WrenOS Documentation</p>
+          <h1>WrenOS Documentation</h1>
+          <p class="subtitle">The open-source control plane for operator-managed crypto agent systems.</p>
+
+          <div class="stats-block" aria-label="System inventory">
+            <div><span class="prompt">%</span> /system inventory</div>
+            <div class="inv-row"><span class="inv-key">packages</span><span class="inv-val">6</span></div>
+            <div class="inv-row"><span class="inv-key">skills</span><span class="inv-val">17</span></div>
+            <div class="inv-row"><span class="inv-key">mcp_tools</span><span class="inv-val">310+</span></div>
+            <div class="inv-row"><span class="inv-key">agent_packs</span><span class="inv-val">2</span></div>
+          </div>
+
+          <h2 id="explore-the-docs">Explore the Docs</h2>
+          <div class="cards">
+            <a class="card" href="#quick-start"><h3 class="card-title">Getting Started</h3><p class="card-copy">Install fast, initialize a profile, and validate runtime health.</p></a>
+            <a class="card" href="#cli-overview"><h3 class="card-title">CLI Reference</h3><p class="card-copy">Command model, init flow, diagnostics, and config controls.</p></a>
+            <a class="card" href="#packages-core"><h3 class="card-title">Packages</h3><p class="card-copy">Understand core modules, profiles, loops, and adapters.</p></a>
+            <a class="card" href="#speakeasy-integration"><h3 class="card-title">Speakeasy Integration</h3><p class="card-copy">Private model routing for strategy analysis workflows.</p></a>
+            <a class="card" href="#architecture"><h3 class="card-title">Architecture</h3><p class="card-copy">Agent coordination, tool layers, and execution boundaries.</p></a>
+            <a class="card" href="#safety-posture"><h3 class="card-title">Safety & Risk</h3><p class="card-copy">Paper-first controls, approvals, and custody separation.</p></a>
+          </div>
+          <p style="text-align:center"><a class="top-link" href="https://github.com/wrensignal/wrenOS" target="_blank" rel="noreferrer">View on GitHub →</a></p>
+        </section>
+
+        <section class="page" data-page="quick-start">
+          <p class="kicker">Getting Started</p>
+          <h1>Quick Start</h1>
+          <p class="subtitle">Install WrenOS, initialize an agent profile, and verify your local stack in minutes.</p>
+
+          <h2 id="prerequisites">Prerequisites</h2>
+          <ul>
+            <li>Node.js 20+ and npm</li>
+            <li>OpenClaw runtime access</li>
+            <li>A Solana wallet for eventual live execution (paper mode is default)</li>
+          </ul>
+
+          <h2 id="install-and-init">Install and initialize</h2>
+          <div class="code-wrap">
+            <div class="code-top"><span>terminal</span><button class="copy-btn" data-copy>Copy</button></div>
+            <pre><code>git clone https://github.com/wrensignal/wrenOS.git
+cd wrenOS
+npm install
+node packages/cli/src/index.mjs init --profile research-agent
+node packages/cli/src/index.mjs doctor
+node packages/cli/src/index.mjs status</code></pre>
+          </div>
+
+          <h3 id="what-init-does">What <code class="inline">init</code> does</h3>
+          <p>Creates project config, wires defaults, and scaffolds MCP definitions for research, tool access, and execution context. If <code class="inline">.mcp.json</code> is missing, it generates one.</p>
+
+          <h2 id="next-steps">Next steps</h2>
+          <div class="admonition tip"><strong>Tip</strong><p>Keep paper mode enabled until your strategy passes repeated backtests and paper sessions under varied conditions.</p></div>
+
+          <table>
+            <thead><tr><th>Goal</th><th>Command</th></tr></thead>
+            <tbody>
+              <tr><td>Inspect config</td><td><code>node packages/cli/src/index.mjs config list</code></td></tr>
+              <tr><td>Check inference link</td><td><code>node packages/cli/src/index.mjs test inference</code></td></tr>
+              <tr><td>Check execution path</td><td><code>node packages/cli/src/index.mjs test execution</code></td></tr>
+            </tbody>
+          </table>
+
+          <div class="page-nav">
+            <a href="#overview">← Previous: Overview</a>
+            <a href="#safety-posture">Next: Safety Posture →</a>
+          </div>
+          <a class="edit-link" target="_blank" rel="noreferrer" href="https://github.com/wrensignal/wrenOS/edit/main/docs/quickstart.md">Edit this page on GitHub</a>
+        </section>
+
+        <section class="page" data-page="safety-posture">
+          <p class="kicker">Getting Started</p>
+          <h1>Safety Posture</h1>
+          <p class="subtitle">Operational safeguards for agent-managed strategy systems.</p>
+
+          <h2 id="paper-first">Paper-first by default</h2>
+          <p>WrenOS starts with simulation mode enabled. The system records strategy decisions and execution intent without committing capital, giving operators a full audit trail before live risk.</p>
+
+          <h2 id="approval-model">Approval model</h2>
+          <p>External side effects can require explicit approvals based on policy. This keeps execution deliberate and reviewable as confidence changes.</p>
+          <div class="admonition warn"><strong>Warning</strong><p>Do not enable live execution until you validate tool integrity, routing stability, and strategy behavior across adverse market conditions.</p></div>
+
+          <h2 id="custody-separation">Custody separation</h2>
+          <p>WrenOS does not require custody of private keys. Signing remains in your wallet boundary while agents handle analysis, scoring, and execution decisions.</p>
+
+          <h3 id="degrade-safely">Degrade safely</h3>
+          <p>Confidence tiers can tighten or suspend execution as data quality deteriorates, reducing impulsive behavior in uncertain states.</p>
+
+          <div class="page-nav">
+            <a href="#quick-start">← Previous: Quick Start</a>
+            <a href="#cli-overview">Next: CLI Overview →</a>
+          </div>
+          <a class="edit-link" target="_blank" rel="noreferrer" href="https://github.com/wrensignal/wrenOS/edit/main/docs/safety.md">Edit this page on GitHub</a>
+        </section>
+
+        <section class="page" data-page="cli-overview">
+          <p class="kicker">CLI</p>
+          <h1>CLI Overview</h1>
+          <p class="subtitle">Core command surface for setup, diagnostics, runtime checks, and configuration.</p>
+
+          <h2 id="command-model">Command model</h2>
+          <p>The CLI is designed around initialization, verification, and controlled iteration. Commands are composable and readable, with explicit naming for operator clarity.</p>
+
+          <h2 id="common-commands">Common commands</h2>
+          <div class="code-wrap">
+            <div class="code-top"><span>terminal</span><button class="copy-btn" data-copy>Copy</button></div>
+            <pre><code><span class="tok-cmt"># initialize a profile</span>
+wrenos init --profile research-agent
+
+<span class="tok-cmt"># run health checks</span>
+wrenos doctor
+wrenos status
+
+<span class="tok-cmt"># inspect/set config</span>
+wrenos config list
+wrenos config set execution.paperMode true</code></pre>
+          </div>
+
+          <h3 id="init">wrenos init</h3>
+          <p>Bootstraps project configuration and writes default runtime artifacts.</p>
+          <h3 id="doctor">wrenos doctor</h3>
+          <p>Runs diagnostics for dependency health, connectivity, and required runtime components.</p>
+          <h3 id="status">wrenos status</h3>
+          <p>Returns current profile, routing state, and execution posture.</p>
+          <h3 id="config">wrenos config</h3>
+          <p>Reads and updates config keys for inference, execution, and policy controls.</p>
+          <h3 id="start">wrenos start</h3>
+          <p>Starts the configured runtime loop for your selected profile.</p>
+
+          <div class="page-nav">
+            <a href="#safety-posture">← Previous: Safety Posture</a>
+            <a href="#packages-core">Next: Core Package →</a>
+          </div>
+          <a class="edit-link" target="_blank" rel="noreferrer" href="https://github.com/wrensignal/wrenOS/edit/main/packages/cli">Edit this page on GitHub</a>
+        </section>
+
+        <section class="page" data-page="configuration">
+          <p class="kicker">Getting Started</p>
+          <h1>Configuration</h1>
+          <p class="subtitle">WrenOS uses inspectable JSON config under <code class="inline">.wrenos/config.json</code> (legacy <code class="inline">.0xclaw/config.json</code> fallback remains temporary).</p>
+          <h2 id="config-priority">Config priority</h2>
+          <p>Runtime reads <code class="inline">.wrenos/config.json</code> first. If missing, it can read the legacy path and emits a migration warning. For fresh setups, always use <code class="inline">.wrenos/</code>.</p>
+          <h2 id="common-keys">Common keys</h2>
+          <table><thead><tr><th>Key</th><th>Purpose</th></tr></thead><tbody>
+          <tr><td><code>profile</code></td><td>Selected operator profile template.</td></tr>
+          <tr><td><code>liveExecution</code></td><td>Global safety gate. Defaults <code>false</code>.</td></tr>
+          <tr><td><code>inference.baseUrl</code></td><td>Inference routing endpoint (default Speakeasy URL).</td></tr>
+          <tr><td><code>inference.routes.*</code></td><td>Route families for research/deep_think/codegen/uncensored.</td></tr>
+          <tr><td><code>loop.*</code></td><td>Cadence + execution behavior.</td></tr>
+          <tr><td><code>execution.venues.*</code></td><td>Execution venue adapters and toggles.</td></tr>
+          </tbody></table>
+          <h2 id="set-values">Set values from CLI</h2>
+          <div class="code-wrap"><div class="code-top"><span>terminal</span><button class="copy-btn" data-copy>Copy</button></div><pre><code>wrenos config set liveExecution false
+wrenos config set inference.baseUrl https://api.speakeasyrelay.com
+wrenos config set execution.venues.jupiter.enabled true</code></pre></div>
+          <div class="page-nav"><a href="#quick-start">← Previous: Quick Start</a><a href="#safety-posture">Next: Safety Posture →</a></div>
+          <a class="edit-link" target="_blank" rel="noreferrer" href="https://github.com/wrensignal/wrenOS/edit/main/packages/cli/src/index.mjs">Edit this page on GitHub</a>
+        </section>
+
+        <section class="page" data-page="cli-init"><p class="kicker">CLI</p><h1>wrenos init</h1><p class="subtitle">Initialize WrenOS with a profile and write safe defaults.</p><h2 id="init-usage">Usage</h2><div class="code-wrap"><div class="code-top"><span>terminal</span><button class="copy-btn" data-copy>Copy</button></div><pre><code>wrenos init --profile research-agent</code></pre></div><h2 id="init-behavior">What it does</h2><ul><li>Creates <code class="inline">.wrenos/config.json</code> from profile templates.</li><li>Sets <code class="inline">liveExecution: false</code> by default.</li><li>Generates <code class="inline">.mcp.json</code> if missing.</li></ul><a class="edit-link" target="_blank" rel="noreferrer" href="https://github.com/wrensignal/wrenOS/edit/main/packages/cli/src/index.mjs">Edit this page on GitHub</a></section>
+
+        <section class="page" data-page="cli-doctor"><p class="kicker">CLI</p><h1>wrenos doctor</h1><p class="subtitle">Run environment and configuration diagnostics.</p><h2 id="doctor-checks">Checks include</h2><ul><li>Node runtime compatibility</li><li>Config presence/profile validity</li><li>MCP config availability</li><li>Inference route readiness</li><li>Execution mode + paper-safe default</li></ul><div class="admonition tip"><strong>Tip</strong><p>Use <code class="inline">wrenos doctor</code> before every profile switch or deploy.</p></div><a class="edit-link" target="_blank" rel="noreferrer" href="https://github.com/wrensignal/wrenOS/edit/main/packages/cli/src/index.mjs">Edit this page on GitHub</a></section>
+
+        <section class="page" data-page="cli-status"><p class="kicker">CLI</p><h1>wrenos status</h1><p class="subtitle">Snapshot current profile, safety posture, and runtime-facing config.</p><h2 id="status-purpose">Purpose</h2><p>Use status to confirm selected profile, execution mode, and critical route values before running loops or enabling any external action path.</p><a class="edit-link" target="_blank" rel="noreferrer" href="https://github.com/wrensignal/wrenOS/edit/main/packages/cli/src/index.mjs">Edit this page on GitHub</a></section>
+
+        <section class="page" data-page="cli-config"><p class="kicker">CLI</p><h1>wrenos config</h1><p class="subtitle">Read and mutate nested config keys using dot-path syntax.</p><h2 id="config-usage">Usage</h2><div class="code-wrap"><div class="code-top"><span>terminal</span><button class="copy-btn" data-copy>Copy</button></div><pre><code>wrenos config set risk.maxTradeUsd 25
+wrenos config set loop.heartbeatAdaptive true
+wrenos config set inference.routes.research deepseek-v3.2</code></pre></div><a class="edit-link" target="_blank" rel="noreferrer" href="https://github.com/wrensignal/wrenOS/edit/main/packages/cli/src/index.mjs">Edit this page on GitHub</a></section>
+
+        <section class="page" data-page="cli-start"><p class="kicker">CLI</p><h1>wrenos start</h1><p class="subtitle">Beta orchestration loop for structured heartbeat operations.</p><h2 id="start-beta">Current status</h2><p><code class="inline">wrenos start</code> is available but still beta. Prefer deterministic checks with <code class="inline">wrenos start --once</code> and supervise long-running production loops with your scheduler/process manager.</p><a class="edit-link" target="_blank" rel="noreferrer" href="https://github.com/wrensignal/wrenOS/edit/main/packages/cli/src/index.mjs">Edit this page on GitHub</a></section>
+
+        <section class="page" data-page="packages-core"><p class="kicker">Packages</p><h1>Core</h1><p class="subtitle">@wrenos/core — policy defaults, safety primitives, and shared utilities.</p><h2 id="core-role">Role</h2><p>Core centralizes reusable control-plane behaviors and safety defaults so profile and adapter layers share consistent policy semantics.</p><a class="edit-link" target="_blank" rel="noreferrer" href="https://github.com/wrensignal/wrenOS/tree/main/packages/core">Edit this page on GitHub</a></section>
+
+        <section class="page" data-page="packages-profiles"><p class="kicker">Packages</p><h1>Profiles</h1><p class="subtitle">@wrenos/profiles — paper-first, safety-first profile templates.</p><h2 id="profile-set">Shipped templates</h2><ul><li>research-agent</li><li>research-only</li><li>solo-trader-paper</li><li>trading-agent-paper</li><li>trading-agent-live-disabled</li><li>meme-discovery-research</li><li>meme-discovery-trading-paper</li></ul><a class="edit-link" target="_blank" rel="noreferrer" href="https://github.com/wrensignal/wrenOS/tree/main/packages/profiles/templates">Edit this page on GitHub</a></section>
+
+        <section class="page" data-page="packages-loops"><p class="kicker">Packages</p><h1>Loops</h1><p class="subtitle">@wrenos/loops — heartbeat planning and validation summaries.</p><h2 id="loops-role">Role</h2><p>Loop primitives govern cadence and condition-aware behavior, helping operators degrade safely as data quality or route health changes.</p><a class="edit-link" target="_blank" rel="noreferrer" href="https://github.com/wrensignal/wrenOS/tree/main/packages/loops">Edit this page on GitHub</a></section>
+
+        <section class="page" data-page="packages-adapters"><p class="kicker">Packages</p><h1>Adapters</h1><p class="subtitle">@wrenos/adapters — connectors for inference, execution, and operator interfaces.</p><h2 id="adapter-scope">Adapter scope</h2><ul><li>Inference: Speakeasy/OpenAI-compatible request shape</li><li>Execution: Jupiter + pump.fun paths</li><li>Operator UX: chat/operator surfaces</li></ul><a class="edit-link" target="_blank" rel="noreferrer" href="https://github.com/wrensignal/wrenOS/tree/main/packages/adapters">Edit this page on GitHub</a></section>
+
+        <section class="page" data-page="packages-speakeasy-ai"><p class="kicker">Packages</p><h1>Speakeasy AI</h1><p class="subtitle">OpenAI-compatible Speakeasy SDK with built-in x402 flow.</p><h2 id="sdk-install">Install</h2><div class="code-wrap"><div class="code-top"><span>terminal</span><button class="copy-btn" data-copy>Copy</button></div><pre><code>npm install speakeasy-ai</code></pre></div><h2 id="sdk-flow">What it handles</h2><ul><li>Initial request</li><li>402 challenge parsing</li><li>EIP-712/EIP-3009 signing</li><li>Replay with payment proof headers</li><li>JSON/SSE streaming output</li></ul><a class="edit-link" target="_blank" rel="noreferrer" href="https://github.com/wrensignal/wrenOS/edit/main/packages/speakeasy-ai/README.md">Edit this page on GitHub</a></section>
+
+        <section class="page" data-page="pack-meme-discovery"><p class="kicker">Packs</p><h1>Meme Discovery</h1><p class="subtitle">Dual-agent meme discovery workflow with composite scoring.</p><h2 id="meme-init">Init</h2><div class="code-wrap"><div class="code-top"><span>terminal</span><button class="copy-btn" data-copy>Copy</button></div><pre><code>wrenos init-pack --pack meme-discovery</code></pre></div><h2 id="meme-included">Includes</h2><ul><li>Research + trading agent configs</li><li>Watchlist handoff schema (<code class="inline">inbox/meme-watchlist-*.json</code>)</li><li>Composite weighted scoring defaults</li><li>Jupiter + pump.fun adapter wiring</li></ul><a class="edit-link" target="_blank" rel="noreferrer" href="https://github.com/wrensignal/wrenOS/edit/main/packs/meme-discovery-pack/README.md">Edit this page on GitHub</a></section>
+
+        <section class="page" data-page="pack-research-agent"><p class="kicker">Packs</p><h1>Research Agent (Dual Agent Pack)</h1><p class="subtitle">Bare-bones two-agent operating model for research-to-trading handoff.</p><h2 id="dual-components">Components</h2><ul><li>research-agent for evidence briefs</li><li>trading-agent for validation and risk-gated execution posture</li><li>handoff schema at <code class="inline">handoff/research-brief.schema.json</code></li></ul><a class="edit-link" target="_blank" rel="noreferrer" href="https://github.com/wrensignal/wrenOS/edit/main/packs/dual-agent-pack/README.md">Edit this page on GitHub</a></section>
+
+        <section class="page" data-page="speakeasy-integration"><p class="kicker">Guides</p><h1>Speakeasy Integration</h1><p class="subtitle">Private inference routing with explicit fallback posture.</p><h2 id="speakeasy-env">Baseline env</h2><ul><li><code class="inline">SPEAKEASY_BASE_URL</code></li><li><code class="inline">SPEAKEASY_API_KEY</code> (deployment-dependent)</li><li>route envs/overrides as needed</li></ul><h2 id="speakeasy-guardrails">Operational guardrails</h2><ul><li>Cache deterministic calls where possible</li><li>Gate expensive calls on material input deltas</li><li>Track per-cycle model usage and cost</li><li>Report degraded route state explicitly</li></ul><a class="edit-link" target="_blank" rel="noreferrer" href="https://github.com/wrensignal/wrenOS/edit/main/docs/speakeasy-integration.md">Edit this page on GitHub</a></section>
+
+        <section class="page" data-page="railway-deploy"><p class="kicker">Guides</p><h1>Railway Deploy</h1><p class="subtitle">Template deploy for a full WrenOS stack with paper-first defaults.</p><h2 id="railway-required-env">Required env</h2><ul><li><code class="inline">PROFILE</code></li><li><code class="inline">SPEAKEASY_BASE_URL</code></li><li><code class="inline">OPENCLAW_API_KEY</code></li><li><code class="inline">TELEGRAM_BOT_TOKEN</code> (for chat UX)</li></ul><h2 id="railway-verify">Post-deploy verification</h2><ol><li>Service health and restart stability</li><li>Inference connectivity and route checks</li><li>Profile + execution mode sanity</li><li>Heartbeat/log artifact verification</li></ol><a class="edit-link" target="_blank" rel="noreferrer" href="https://github.com/wrensignal/wrenOS/edit/main/RAILWAY_DEPLOY.md">Edit this page on GitHub</a></section>
+
+        <section class="page" data-page="migrating"><p class="kicker">Guides</p><h1>Migrating from 0xClaw</h1><p class="subtitle">Move to WrenOS naming and config paths with minimal disruption.</p><h2 id="migration-changes">Key changes</h2><ul><li>Repo: <code class="inline">wrensignal/0xClaw</code> → <code class="inline">wrensignal/wrenOS</code></li><li>CLI: <code class="inline">0xclaw</code> → <code class="inline">wrenos</code></li><li>Config: <code class="inline">.0xclaw/</code> → <code class="inline">.wrenos/</code></li></ul><h2 id="migration-command">Recommended migration</h2><div class="code-wrap"><div class="code-top"><span>terminal</span><button class="copy-btn" data-copy>Copy</button></div><pre><code>wrenos migrate
+wrenos doctor && wrenos status</code></pre></div><a class="edit-link" target="_blank" rel="noreferrer" href="https://github.com/wrensignal/wrenOS/edit/main/docs/migrating-from-0xclaw-to-wrenos.md">Edit this page on GitHub</a></section>
+
+        <section class="page" data-page="architecture"><p class="kicker">Reference</p><h1>Architecture</h1><p class="subtitle">Composable control plane: profiles, adapters, loops, and operator governance.</p><h2 id="three-layers">Three-layer model</h2><ol><li>Open-source control plane (CLI, profiles, packs, loops, adapters)</li><li>Hosted runtime infrastructure (optional/default path)</li><li>Operator workflows and governance (approvals, runbooks, audits)</li></ol><h2 id="runtime-flow">Runtime flow</h2><p><strong>Inference path:</strong> agent loop → adapter → Speakeasy route.</p><p><strong>Execution path:</strong> decision → execution adapter → venue quote/build → paper/live policy gate.</p><a class="edit-link" target="_blank" rel="noreferrer" href="https://github.com/wrensignal/wrenOS/edit/main/docs/architecture.md">Edit this page on GitHub</a></section>
+
+        <section class="page" data-page="runtime-status"><p class="kicker">Reference</p><h1>Runtime Status</h1><p class="subtitle">Current maturity snapshot from the repository docs.</p><h2 id="runtime-usable">Usable today</h2><ul><li>CLI lifecycle: init, doctor, status, config, wallet, test, start, init-pack, bootstrap-wrenos</li><li>Profile templates with paper-mode defaults</li><li>Inference connectivity tests and execution path tests</li><li>Inspectable file-based configuration and output artifacts</li></ul><h2 id="runtime-experimental">Experimental</h2><ul><li><code class="inline">wrenos start</code> beta orchestration loop</li><li>Turnkey Telegram operator stack as a production-default path</li><li>Expanded pack ecosystems and auto-wiring assumptions</li></ul><a class="edit-link" target="_blank" rel="noreferrer" href="https://github.com/wrensignal/wrenOS/edit/main/docs/runtime-status.md">Edit this page on GitHub</a></section>
+
+        <section class="page" data-page="config-schema"><p class="kicker">Reference</p><h1>Config Schema</h1><p class="subtitle">Representative schema derived from shipped profile templates.</p><h2 id="schema-example">Example profile JSON</h2><div class="code-wrap"><div class="code-top"><span>.wrenos/config.json</span><button class="copy-btn" data-copy>Copy</button></div><pre><code>{
+  "profile": "trading-agent-paper",
+  "liveExecution": false,
+  "loop": { "enabled": true, "heartbeatAdaptive": true, "tradeExecution": "paper" },
+  "risk": { "maxTradeUsd": 25, "maxDailyNotionalUsd": 75 },
+  "inference": {
+    "provider": "speakeasy",
+    "baseUrl": "https://api.speakeasyrelay.com",
+    "routes": {
+      "research": "deepseek-v3.2",
+      "deep_think": "qwen3-235b-a22b-thinking-2507",
+      "codegen": "qwen3-coder-480b-a35b-instruct",
+      "uncensored": "venice-uncensored"
+    }
+  }
+}</code></pre></div><a class="edit-link" target="_blank" rel="noreferrer" href="https://github.com/wrensignal/wrenOS/tree/main/packages/profiles/templates">Edit this page on GitHub</a></section>
+
+        <section class="page" data-page="changelog"><p class="kicker">Reference</p><h1>Changelog</h1><p class="subtitle">Recent release history.</p><h2 id="changelog-2026-03-07">2026-03-07 — Rebrand: 0xClaw → WrenOS</h2><ul><li>Primary CLI renamed to <code class="inline">wrenos</code></li><li>Primary config directory renamed to <code class="inline">.wrenos/</code></li><li>Workspace package scope moved to <code class="inline">@wrenos/*</code></li></ul><p>Compatibility aliases remain temporarily (<code class="inline">0xclaw</code>, legacy config fallback, bootstrap aliases), with planned removal target <code class="inline">v0.3.0</code>.</p><a class="edit-link" target="_blank" rel="noreferrer" href="https://github.com/wrensignal/wrenOS/edit/main/CHANGELOG.md">Edit this page on GitHub</a></section>
+      </main>
+
+      <aside class="toc" id="toc">
+        <p class="toc-title">On this page</p>
+        <div id="tocLinks"></div>
+      </aside>
+    </div>
+
+    <script>
+      const pages = [...document.querySelectorAll('.page')];
+      const navItems = [...document.querySelectorAll('[data-page-link]')];
+      const tocLinks = document.getElementById('tocLinks');
+      const sidebar = document.getElementById('sidebar');
+      const menuBtn = document.getElementById('menuBtn');
+
+      function getHashPage() {
+        const h = (location.hash || '#overview').replace('#', '');
+        return pages.some(p => p.dataset.page === h) ? h : 'overview';
+      }
+
+      function buildTOC(pageEl) {
+        tocLinks.innerHTML = '';
+        const heads = [...pageEl.querySelectorAll('h2, h3')];
+        heads.forEach((h, i) => {
+          if (!h.id) h.id = `${pageEl.dataset.page}-h-${i}`;
+          const a = document.createElement('a');
+          a.href = `#${pageEl.dataset.page}::${h.id}`;
+          a.dataset.target = h.id;
+          a.className = `toc-link level-${h.tagName === 'H3' ? '3' : '2'}`;
+          a.textContent = h.textContent;
+          a.addEventListener('click', (e) => {
+            e.preventDefault();
+            h.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+          tocLinks.appendChild(a);
+        });
+        observeHeadings(heads);
+      }
+
+      let observer;
+      function observeHeadings(heads) {
+        if (observer) observer.disconnect();
+        observer = new IntersectionObserver((entries) => {
+          const visible = entries.filter(e => e.isIntersecting).sort((a,b)=>a.boundingClientRect.top-b.boundingClientRect.top)[0];
+          if (!visible) return;
+          const id = visible.target.id;
+          document.querySelectorAll('.toc-link').forEach(l => l.classList.toggle('active', l.dataset.target === id));
+        }, { rootMargin: '-20% 0px -70% 0px', threshold: [0,1] });
+        heads.forEach(h => observer.observe(h));
+      }
+
+      function setPage(page) {
+        pages.forEach(p => p.classList.toggle('active', p.dataset.page === page));
+        navItems.forEach(n => n.classList.toggle('active', n.dataset.pageLink === page));
+        const current = pages.find(p => p.dataset.page === page);
+        if (current) buildTOC(current);
+        if (location.hash.replace('#','') !== page) history.replaceState(null, '', `#${page}`);
+        if (window.innerWidth < 769) sidebar.classList.remove('open');
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
+
+      navItems.forEach(n => n.addEventListener('click', (e) => {
+        e.preventDefault();
+        setPage(n.dataset.pageLink);
+      }));
+
+      document.querySelectorAll('[data-copy]').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const code = btn.closest('.code-wrap').querySelector('pre').innerText;
+          await navigator.clipboard.writeText(code);
+          const t = btn.textContent; btn.textContent = 'Copied';
+          setTimeout(() => (btn.textContent = t), 900);
+        });
+      });
+
+      menuBtn?.addEventListener('click', () => sidebar.classList.toggle('open'));
+      window.addEventListener('hashchange', () => setPage(getHashPage()));
+      setPage(getHashPage());
+    </script>
+  </body>
+</html>
