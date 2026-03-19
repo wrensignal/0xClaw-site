@@ -335,6 +335,7 @@
             <a class="nav-item" href="#speakeasy-integration" data-page-link="speakeasy-integration">Speakeasy Integration</a>
             <a class="nav-item" href="#railway-deploy" data-page-link="railway-deploy">Railway Deploy</a>
             <a class="nav-item" href="#migrating" data-page-link="migrating">Migrating from 0xClaw</a>
+            <a class="nav-item" href="#docs-parity" data-page-link="docs-parity">Docs Parity Matrix</a>
           </div>
           <div class="nav-group"><div class="nav-label">Reference</div>
             <a class="nav-item" href="#architecture" data-page-link="architecture">Architecture</a>
@@ -355,9 +356,9 @@
             <p class="inventory-label">/system inventory</p>
             <ul class="inventory-list">
               <li class="inventory-row"><span class="inventory-key">packages</span><span class="inventory-val">6</span></li>
-              <li class="inventory-row"><span class="inventory-key">skills</span><span class="inventory-val">17</span></li>
-              <li class="inventory-row"><span class="inventory-key">mcp_tools</span><span class="inventory-val">310+</span></li>
-              <li class="inventory-row"><span class="inventory-key">agent_packs</span><span class="inventory-val">2</span></li>
+              <li class="inventory-row"><span class="inventory-key">core_skills_pack</span><span class="inventory-val">13 audited</span></li>
+              <li class="inventory-row"><span class="inventory-key">default_mcp_servers</span><span class="inventory-val">3 wired by init</span></li>
+              <li class="inventory-row"><span class="inventory-key">agent_packs</span><span class="inventory-val">2 active</span></li>
             </ul>
 
           </div>
@@ -370,8 +371,9 @@
             <a class="card" href="#speakeasy-integration"><h3 class="card-title">Speakeasy Integration</h3><p class="card-copy">Private model routing for strategy analysis workflows.</p></a>
             <a class="card" href="#architecture"><h3 class="card-title">Architecture</h3><p class="card-copy">Agent coordination, tool layers, and execution boundaries.</p></a>
             <a class="card" href="#safety-posture"><h3 class="card-title">Safety & Risk</h3><p class="card-copy">Paper-first controls, approvals, and custody separation.</p></a>
+            <a class="card" href="#docs-parity"><h3 class="card-title">Docs Parity Matrix</h3><p class="card-copy">Section-by-section map of live docs vs source markdown paths.</p></a>
           </div>
-          <p class="subtitle" id="docs-sync-marker">Docs content synced against <code class="inline">wrensignal/wrenOS@2f03f79</code>.</p>
+          <p class="subtitle" id="docs-sync-marker">Docs content synced against <code class="inline">wrensignal/wrenOS@a73300c</code>.</p>
 <p style="text-align:center"><a class="top-link" href="https://github.com/wrensignal/wrenOS" target="_blank" rel="noreferrer">View on GitHub →</a></p>
         
           <a class="resource-card" href="./site-ownership.md" target="_blank" rel="noopener noreferrer">
@@ -470,7 +472,7 @@ wrenos status
 
 <span class="tok-cmt"># inspect/set config</span>
 wrenos config list
-wrenos config set execution.paperMode true</code></pre>
+wrenos config set liveExecution false</code></pre>
           </div>
 
           <h3 id="init">wrenos init</h3>
@@ -546,6 +548,39 @@ wrenos config set inference.routes.research deepseek-v3.2</code></pre></div><a c
 
         <section class="page" data-page="migrating"><p class="kicker">Guides</p><h1>Migrating from 0xClaw</h1><p class="subtitle">Move to WrenOS naming and config paths with minimal disruption.</p><h2 id="migration-changes">Key changes</h2><ul><li>Repo: <code class="inline">wrensignal/0xClaw</code> → <code class="inline">wrensignal/wrenOS</code></li><li>CLI: <code class="inline">0xclaw</code> → <code class="inline">wrenos</code></li><li>Config: <code class="inline">.0xclaw/</code> → <code class="inline">.wrenos/</code></li></ul><h2 id="migration-command">Recommended migration</h2><div class="code-wrap"><div class="code-top"><span>terminal</span><button class="copy-btn" data-copy>Copy</button></div><pre><code>wrenos migrate
 wrenos doctor && wrenos status</code></pre></div><a class="edit-link" target="_blank" rel="noreferrer" href="https://github.com/wrensignal/wrenOS/edit/main/docs/migrating-from-0xclaw-to-wrenos.md">Edit this page on GitHub</a></section>
+
+
+
+        <section class="page" data-page="docs-parity">
+          <p class="kicker">Guides</p>
+          <h1>Docs Parity Matrix</h1>
+          <p class="subtitle">Section-by-section parity map between <code class="inline">wrenos.ai/docs</code> and source markdown in <code class="inline">wrensignal/wrenOS</code>.</p>
+
+          <table>
+            <thead><tr><th>Live section</th><th>Source of truth</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>Quick Start</td><td><code>docs/quickstart.md</code></td><td>Aligned</td></tr>
+              <tr><td>Safety Posture</td><td><code>docs/safety.md</code></td><td>Aligned</td></tr>
+              <tr><td>CLI acceptance</td><td><code>docs/cli-acceptance.md</code></td><td>Referenced</td></tr>
+              <tr><td>MCP diagnostics</td><td><code>docs/mcp-doctor-signatures.md</code></td><td>Referenced</td></tr>
+              <tr><td>Privy onboarding</td><td><code>docs/privy-wallet-provisioning.md</code></td><td>Referenced</td></tr>
+              <tr><td>Railway deploy</td><td><code>docs/railway-first-run-playbook.md</code> + <code>RAILWAY_DEPLOY.md</code></td><td>Aligned</td></tr>
+              <tr><td>Profile matrix</td><td><code>docs/profile-matrix.md</code></td><td>Aligned</td></tr>
+              <tr><td>Architecture/runtime</td><td><code>docs/architecture.md</code>, <code>docs/runtime-status.md</code></td><td>Aligned</td></tr>
+              <tr><td>Migration guides</td><td><code>docs/migrating-from-0xclaw-to-wrenos.md</code></td><td>Aligned</td></tr>
+            </tbody>
+          </table>
+
+          <h2 id="parity-reviewer-checklist">Reviewer checklist</h2>
+          <ul>
+            <li>Every major docs section links to a concrete source markdown path.</li>
+            <li>No claim contradicts current CLI/runtime behavior.</li>
+            <li>Command snippets match current command names and flags.</li>
+            <li>Safety defaults remain paper-first and opt-in for live execution.</li>
+          </ul>
+
+          <a class="edit-link" target="_blank" rel="noreferrer" href="https://github.com/wrensignal/0xClaw-site/edit/main/docs/parity-matrix.md">Edit parity artifact on GitHub</a>
+        </section>
 
         <section class="page" data-page="architecture"><p class="kicker">Reference</p><h1>Architecture</h1><p class="subtitle">Composable control plane: profiles, adapters, loops, and operator governance.</p><h2 id="three-layers">Three-layer model</h2><ol><li>Open-source control plane (CLI, profiles, packs, loops, adapters)</li><li>Hosted runtime infrastructure (optional/default path)</li><li>Operator workflows and governance (approvals, runbooks, audits)</li></ol><h2 id="runtime-flow">Runtime flow</h2><p><strong>Inference path:</strong> agent loop → adapter → Speakeasy route.</p><p><strong>Execution path:</strong> decision → execution adapter → venue quote/build → paper/live policy gate.</p><a class="edit-link" target="_blank" rel="noreferrer" href="https://github.com/wrensignal/wrenOS/edit/main/docs/architecture.md">Edit this page on GitHub</a></section>
 
