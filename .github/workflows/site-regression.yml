@@ -1,0 +1,28 @@
+name: site-regression
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Run site/docs regression audit
+        run: node scripts/site-regression-audit.mjs
+
+      - name: Upload regression artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-regression-report
+          path: docs/reports/site-regression-report.json
