@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-03-20T10:09:19.734Z",
+  "generatedAt": "2026-03-20T11:11:04.231Z",
   "summary": {
-    "total": 11,
-    "passed": 11,
+    "total": 13,
+    "passed": 13,
     "failed": 0
   },
   "checks": [
@@ -52,14 +52,24 @@
       "details": ""
     },
     {
-      "name": "route status < 400: https://wrenos.ai/",
+      "name": "route status < 400: https://www.wrenos.ai/",
       "pass": true,
-      "details": "status=307"
+      "details": "status=200 redirects=1"
     },
     {
-      "name": "route status < 400: https://wrenos.ai/docs",
+      "name": "route status < 400: https://www.wrenos.ai/docs",
       "pass": true,
-      "details": "status=307"
+      "details": "status=200 redirects=1"
+    },
+    {
+      "name": "route status < 400: https://www.wrenos.ai/",
+      "pass": true,
+      "details": "status=200 redirects=0"
+    },
+    {
+      "name": "route status < 400: https://www.wrenos.ai/docs",
+      "pass": true,
+      "details": "status=200 redirects=0"
     }
   ]
 }

@@ -24,3 +24,8 @@ Checks include:
 - Added `.github/workflows/site-regression.yml`
 - Runs `node scripts/site-regression-audit.mjs` on PRs and main pushes
 - Uploads `docs/reports/site-regression-report.json` as workflow artifact
+
+## Hardening update
+- Added redirect-following status checks (up to 5 hops).
+- Added route checks for both apex and `www` host variants for `/` and `/docs`.
+- Report now captures redirect count per checked route.
