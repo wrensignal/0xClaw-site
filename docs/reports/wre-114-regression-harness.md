@@ -29,3 +29,6 @@ Checks include:
 - Added redirect-following status checks (up to 5 hops).
 - Added route checks for both apex and `www` host variants for `/` and `/docs`.
 - Report now captures redirect count per checked route.
+
+## Operator run command
+- `./scripts/run-site-regression.sh`
