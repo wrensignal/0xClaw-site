@@ -7,7 +7,7 @@ Scope: `index.html` (no visual redesign; copy-only corrections)
 
 | Area | Previous claim | Updated claim | Why |
 |---|---|---|---|
-| Hero deploy CTA copy | "One-click deploy path. Private model routing ready." | "Documented deploy path with operator-controlled setup. Private model routing supported via Speakeasy integration." | Avoid over-claiming one-click automation not guaranteed across envs |
+| Hero deploy CTA copy | "One-click deploy path. Private model routing ready." | "Documented deploy path with operator-controlled setup. Optional private routing supported; default v1 path does not require Speakeasy." | Avoid over-claiming one-click automation not guaranteed across envs |
 | Signal CTA label | "DEPLOY IN ONE CLICK" | "DEPLOY GUIDE" | Align wording with actual documented flow |
 | Signal CTA body | "Launch on Railway with preconfigured profiles, connect Telegram..." | "Follow the Railway deploy guide... configure env vars, initialize a profile..." | Reflects explicit setup steps from deploy docs |
 | Credibility inventory | `mcp_tools 310+`, `vendored_skills 17` | `default_mcp_servers 3 wired by init`, `core_skill_pack 13 skills audited` | Replaced unverifiable/volatile counts with stable repo-backed facts |
