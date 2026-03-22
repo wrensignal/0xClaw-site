@@ -1,0 +1,16 @@
+{
+  "checks": [
+    {
+      "url": "https://wrenos.ai/",
+      "status": 200,
+      "hasCanonical": true,
+      "hasQuickStart": true
+    },
+    {
+      "url": "https://wrenos.ai/docs",
+      "status": 200,
+      "hasCanonical": true,
+      "hasQuickStart": true
+    }
+  ]
+}
